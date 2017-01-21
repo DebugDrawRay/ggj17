@@ -6,12 +6,13 @@ public class WaveStatusController : MonoBehaviour
 {
 	public Collider thisCollider;
 
-	[Header("Wave Things")]
+	[Header("Wave Properties")]
 	public GameObject[] waveDisplays;
 	public float[] waveChangeThresholds;
 	protected int currentWaveThreshold = 0;
+    public float deathThreshold;
 
-	[Header("Collectible Things")]
+	[Header("Collectibles")]
 	public Transform CollectibleParent;
 
 	[HideInInspector]
@@ -49,9 +50,10 @@ public class WaveStatusController : MonoBehaviour
 			currentWaveThreshold--;
 		}
 
-		if (scale <= 0)
+		if (scale <= deathThreshold)
 		{
-			//Death
+            Debug.Log("You died, loser :c");
+            Destroy(gameObject);
 		}
 	}
 
@@ -76,7 +78,6 @@ public class WaveStatusController : MonoBehaviour
 			//TEMP CODE
 			Destroy(waveController.gameObject);
             OceanBodySpawner.instance.RefillEnemies();
-
         }
 
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
