@@ -16,6 +16,14 @@ public class WaveStatusController : MonoBehaviour
     public float negateAmount = 0.5f;
     public float scaleDecayRate = 0.05f;
 
+    [Header("Wave Visuals")]
+    public SkinnedMeshRenderer skin;
+    public int crestBlend;
+    public int heightBlend;
+    public int flatBlend;
+
+    public float crestScale = 10;
+
     [Header("Collectibles")]
 	public Transform CollectibleParent;
 
@@ -37,7 +45,8 @@ public class WaveStatusController : MonoBehaviour
 		//Move scale of wave toward desired scale
 		transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
 
-		if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
+        skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
+		/*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
 		{
 			waveDisplays[currentWaveThreshold + 1].SetActive(true);
 			waveDisplays[currentWaveThreshold].SetActive(false);
@@ -48,7 +57,7 @@ public class WaveStatusController : MonoBehaviour
 			waveDisplays[currentWaveThreshold - 1].SetActive(true);
 			waveDisplays[currentWaveThreshold].SetActive(false);
 			currentWaveThreshold--;
-		}
+		}*/
 
 		if (transform.localScale.x <= deathThreshold)
 		{

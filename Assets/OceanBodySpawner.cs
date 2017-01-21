@@ -46,7 +46,7 @@ public class OceanBodySpawner : MonoBehaviour
         {
             Vector3 pos = GetRandomPosition(spawnOrigin.position);
             GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
-            Vector3 scale = AddRandomScale(WaveStatusController.instance.transform.localScale);
+            Vector3 scale = AddRandomScale(spawnOrigin.localScale);
             newEnemy.transform.localScale = scale;
         }
     }
@@ -66,7 +66,7 @@ public class OceanBodySpawner : MonoBehaviour
     {
         Vector3 pos = GetRandomPosition(spawnOrigin.position);
         GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
-        Vector3 scale = AddRandomScale(WaveStatusController.instance.transform.localScale);
+        Vector3 scale = AddRandomScale(spawnOrigin.localScale);
         newEnemy.transform.localScale = scale;
     }
 
@@ -82,8 +82,7 @@ public class OceanBodySpawner : MonoBehaviour
 
     Vector3 AddRandomScale(Vector3 current)
     {
-        float scaleMod = Random.Range(-scaleMatchRange.x, scaleMatchRange.y);
-        scaleMod = Mathf.Clamp(scaleMod, .1f, Mathf.Infinity);
+        float scaleMod = Random.Range(scaleMatchRange.x, scaleMatchRange.y);
         current.x += scaleMod;
         current.y += scaleMod;
         current.z += scaleMod;
