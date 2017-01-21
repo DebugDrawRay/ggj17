@@ -12,15 +12,15 @@ public class WaveStatusController : MonoBehaviour
 	protected int currentWaveThreshold = 0;
     public float deathThreshold;
 
-	[Header("Collectibles")]
+    public float scaleSpeed = 1;
+    public float negateAmount = 0.5f;
+    public float scaleDecayRate = 0.05f;
+
+    [Header("Collectibles")]
 	public Transform CollectibleParent;
 
 	[HideInInspector]
 	public float scale = 1f;
-
-	protected float scaleSpeed = 1;
-	protected float negateAmount = 0.5f;
-	protected float scaleDecayRate = 0.05f;
 
     public static WaveStatusController instance;
 
@@ -50,8 +50,9 @@ public class WaveStatusController : MonoBehaviour
 			currentWaveThreshold--;
 		}
 
-		if (scale <= deathThreshold)
+		if (transform.localScale.x <= deathThreshold)
 		{
+            //Death thing also here
             Debug.Log("You died, loser :c");
             Destroy(gameObject);
 		}
@@ -81,24 +82,30 @@ public class WaveStatusController : MonoBehaviour
         }
 
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
-		if (floatsamController != null)
-		{
-			//If wave is big enough to pick it up
-			if (scale > floatsamController.collectThreshold)
-			{
-				//Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
-				RaycastHit hit = GetPointOnMesh();
-				Vector3 position = hit.point;
-				Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        if (floatsamController != null)
+        {
+            //If wave is big enough to pick it up
+            if (scale > floatsamController.collectThreshold)
+            {
+                //Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
+                RaycastHit hit = GetPointOnMesh();
+                Vector3 position = hit.point;
+                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
-				GameObject attachPoint = new GameObject("AttachPoint");
-				attachPoint.transform.position = position;
-				attachPoint.transform.rotation = rotation;
-				attachPoint.transform.SetParent(CollectibleParent);
+                GameObject attachPoint = new GameObject("AttachPoint");
+                attachPoint.transform.position = position;
+                attachPoint.transform.rotation = rotation;
+                attachPoint.transform.SetParent(CollectibleParent);
 
-				floatsamController.AttachToWave(this, attachPoint);
-			}
-		}
+                floatsamController.AttachToWave(this, attachPoint);
+            }
+        }
+        ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
+        if(obstacle)
+        {
+            scale = deathThreshold;
+            //Death thing here
+        }
 	}
 
 	protected RaycastHit GetPointOnMesh()

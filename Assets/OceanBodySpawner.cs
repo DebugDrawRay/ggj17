@@ -22,7 +22,7 @@ public class OceanBodySpawner : MonoBehaviour
     public IntRange obstacleSpawnRange;
     public Vector2 spawnRange;
     public float refillRadius;
-    public float scaleMatchRange;
+    public Vector2 scaleMatchRange;
 
     public Transform spawnOrigin;
     public static OceanBodySpawner instance;
@@ -46,11 +46,7 @@ public class OceanBodySpawner : MonoBehaviour
         {
             Vector3 pos = GetRandomPosition(spawnOrigin.position);
             GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
-            float scaleMod = Random.Range(-scaleMatchRange, scaleMatchRange);
-            Vector3 scale = WaveStatusController.instance.transform.localScale;
-            scale.x += scaleMod;
-            scale.y += scaleMod;
-            scale.z += scaleMod;
+            Vector3 scale = AddRandomScale(WaveStatusController.instance.transform.localScale);
             newEnemy.transform.localScale = scale;
         }
     }
@@ -70,11 +66,7 @@ public class OceanBodySpawner : MonoBehaviour
     {
         Vector3 pos = GetRandomPosition(spawnOrigin.position);
         GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
-        float scaleMod = Random.Range(-scaleMatchRange, scaleMatchRange);
-        Vector3 scale = WaveStatusController.instance.transform.localScale;
-        scale.x += scaleMod;
-        scale.y += scaleMod;
-        scale.z += scaleMod;
+        Vector3 scale = AddRandomScale(WaveStatusController.instance.transform.localScale);
         newEnemy.transform.localScale = scale;
     }
 
@@ -86,6 +78,16 @@ public class OceanBodySpawner : MonoBehaviour
         Vector3 dir = point - center;
         point = Quaternion.Euler(0, Random.Range(0, 360f), 0) * (point - center) + center;
         return point;
+    }
+
+    Vector3 AddRandomScale(Vector3 current)
+    {
+        float scaleMod = Random.Range(-scaleMatchRange.x, scaleMatchRange.y);
+        scaleMod = Mathf.Clamp(scaleMod, .1f, Mathf.Infinity);
+        current.x += scaleMod;
+        current.y += scaleMod;
+        current.z += scaleMod;
+        return current;
     }
 }
 
