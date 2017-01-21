@@ -12,7 +12,7 @@ public class WaveController : MonoBehaviour
         input = PlayerActions.BindAll();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         steering.MoveDirection(input.Steer.Value);
     }

@@ -18,14 +18,10 @@ public class SteeringMovement : MonoBehaviour
     public void MoveDirection(float direction)
     {
         Debug.Log(direction);
-
-        Vector3 forward = transform.forward * moveSpeed;
-        rigid.AddForce(forward, ForceMode.Acceleration);
-        //Vector3 euler = transform.rotation.eulerAngles;
-        //euler.y = euler.y + (direction * turnSpeed);
-        //Quaternion rot = Quaternion.Euler(euler);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, rot, turnAccel);
-
-        rigid.AddTorque(Vector3.up * (direction * turnSpeed));
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
+        Vector3 euler = transform.rotation.eulerAngles;
+        euler.y = euler.y + (direction * turnSpeed);
+        Quaternion rot = Quaternion.Euler(euler);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, turnAccel);
     }
 }
