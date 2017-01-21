@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class WaveStatusController : MonoBehaviour
 {
+	public Collider thisCollider;
+
+	[Header("Wave Things")]
 	public GameObject[] waveDisplays;
 	public float[] waveChangeThresholds;
 	protected int currentWaveThreshold = 0;
+
+	[Header("Collectible Things")]
+	public Transform CollectibleParent;
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -15,6 +21,12 @@ public class WaveStatusController : MonoBehaviour
 	protected float negateAmount = 0.5f;
 	protected float scaleDecayRate = 0.05f;
 
+    public static WaveStatusController instance;
+
+	void Awake()
+	{
+        instance = this;
+	}
 
 	void Update()
 	{
@@ -45,27 +57,59 @@ public class WaveStatusController : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-		OceanBodyData data = collider.gameObject.GetComponent<OceanBodyData>();
-		if (data != null)
+		EnemyWaveController waveController = collider.gameObject.GetComponent<EnemyWaveController>();
+		if (waveController != null)
 		{
-			if (data.type == OceanBodyData.OceanBodyType.EnemyWave)
+			//If you're bigger than the enemy wave
+			if (scale > waveController.scale)
 			{
-				//If enemy wave is bigger than you
-				if (data.scale > scale)
-				{
-					//take damage based on wave scale
-					scale -= data.scale * negateAmount;
-				}
-				else
-				{
-					//Eat enemy wave
-					scale += data.scale;
-				}
+				//Eat enemy wave
+				scale += waveController.scale;
+			}
+			else
+			{
+				//take damage based on wave scale
+				scale -= waveController.scale * negateAmount;
 			}
 
 			//Call for enemy wave destruction
 			//TEMP CODE
-			Destroy(data.gameObject);
+			Destroy(waveController.gameObject);
+            OceanBodySpawner.instance.RefillEnemies();
+
+        }
+
+        FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
+		if (floatsamController != null)
+		{
+			//If wave is big enough to pick it up
+			if (scale > floatsamController.collectThreshold)
+			{
+				//Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
+				RaycastHit hit = GetPointOnMesh();
+				Vector3 position = hit.point;
+				Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+
+				GameObject attachPoint = new GameObject("AttachPoint");
+				attachPoint.transform.position = position;
+				attachPoint.transform.rotation = rotation;
+				attachPoint.transform.SetParent(CollectibleParent);
+
+				floatsamController.AttachToWave(this, attachPoint);
+			}
 		}
+	}
+
+	protected RaycastHit GetPointOnMesh()
+	{
+		float length = 100f;
+		float angleInRad = Random.Range(0f, 90f) * Mathf.Deg2Rad;
+		Vector2 pointOnCircle = (Random.insideUnitCircle.normalized) * Mathf.Sin(angleInRad);
+		Vector3 direction = new Vector3(pointOnCircle.y, Mathf.Cos(angleInRad), pointOnCircle.x);
+
+		Ray ray = new Ray(transform.position + direction * length, -direction);
+		RaycastHit hit;
+		thisCollider.Raycast(ray, out hit, length * 2);
+		return hit;
 	}
 }

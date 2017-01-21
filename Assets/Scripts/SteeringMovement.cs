@@ -9,6 +9,7 @@ public class SteeringMovement : MonoBehaviour
     public float turnSpeed;
     public float turnAccel;
     private Rigidbody rigid;
+    public WaveStatusController status;
 
     void Awake()
     {
@@ -17,7 +18,14 @@ public class SteeringMovement : MonoBehaviour
 
     public void MoveDirection(float direction)
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
+        float totalSpeed = moveSpeed;
+        float totalAccel = turnAccel;
+        if (status)
+        {
+            totalSpeed *= transform.localScale.x;
+            totalAccel /= transform.localScale.x;
+        }
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, totalSpeed * Time.deltaTime);
         Vector3 euler = transform.rotation.eulerAngles;
         euler.y = euler.y + (direction * turnSpeed);
         Quaternion rot = Quaternion.Euler(euler);

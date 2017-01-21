@@ -24,7 +24,7 @@ public class PlayerActions : PlayerActionSet
         actions.Left.AddDefaultBinding(Key.A);
         actions.Right.AddDefaultBinding(Key.D);
         actions.Left.AddDefaultBinding(InputControlType.LeftStickLeft);
-        actions.Right.AddDefaultBinding(InputControlType.RightStickLeft);
+        actions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
 
         return actions;
     }

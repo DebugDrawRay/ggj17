@@ -10,7 +10,8 @@ public class CameraController : MonoBehaviour
     public MeshFilter mesh;
     void LateUpdate()
     {
-        Vector3 pos = anchor.position + offset;
+        Vector3 adjOffset = offset * WaveStatusController.instance.transform.localScale.x;
+        Vector3 pos = anchor.position + adjOffset;
         transform.position = pos;
     }
 
