@@ -50,7 +50,7 @@
 			float2 pannedFoamUVs = { IN.uv_FoamTex[0], IN.uv_FoamTex[1] + (_Time[1] * _FoamSpeed) };
 			fixed4 foamc = tex2D(_FoamTex, pannedFoamUVs);
 			// lerp between c and foam texture based on alpha of foam texture
-			//c = lerp(c,foamc,foamc.a*_FoamStrength);
+			c = lerp(c,foamc,foamc.a*_FoamStrength);
 			//c = foamc;
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
