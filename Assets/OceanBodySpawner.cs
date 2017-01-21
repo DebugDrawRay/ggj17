@@ -21,14 +21,20 @@ public class OceanBodySpawner : MonoBehaviour
     [SerializeField]
     public IntRange obstacleSpawnRange;
     public float spawnRadius;
+    public float refillRadius;
+    public float scaleMatchRange;
 
+    public static OceanBodySpawner instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         SpawnObjects(enemyWave, Random.Range(enemySpawnRange.min, enemySpawnRange.max));
         SpawnObjects(flotsam, Random.Range(floatsamSpawnRange.min, floatsamSpawnRange.max));
         SpawnObjects(obstacles, Random.Range(obstacleSpawnRange.min, obstacleSpawnRange.max));
-
-        Vector2 pos = Random.insideUnitCircle * ocean.bounds.size.x;
     }
 
     void SpawnObjects(GameObject spawn, int amount)
@@ -39,7 +45,13 @@ public class OceanBodySpawner : MonoBehaviour
             pos.z = pos.y;
             pos.y = 0;
             pos += transform.position;
-            Instantiate(spawn, pos, Quaternion.identity);
+            GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
+            float scaleMod = Random.Range(-scaleMatchRange, scaleMatchRange);
+            Vector3 scale = WaveStatusController.instance.transform.localScale;
+            scale.x += scaleMod;
+            scale.y += scaleMod;
+            scale.z += scaleMod;
+            newEnemy.transform.localScale = scale;
         }
     }
     void SpawnObjects(GameObject[] spawns, int amount)
@@ -54,6 +66,20 @@ public class OceanBodySpawner : MonoBehaviour
             pos += transform.position;
             Instantiate(selected, pos, Quaternion.identity);
         }
+    }
+    public void RefillEnemies()
+    {
+        Vector3 pos = Random.insideUnitCircle * refillRadius;
+        pos.z = pos.y;
+        pos.y = 0;
+        pos += WaveStatusController.instance.transform.position;
+        GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
+        float scaleMod = Random.Range(-scaleMatchRange, scaleMatchRange);
+        Vector3 scale = WaveStatusController.instance.transform.localScale;
+        scale.x += scaleMod;
+        scale.y += scaleMod;
+        scale.z += scaleMod;
+        newEnemy.transform.localScale = scale;
     }
 }
 

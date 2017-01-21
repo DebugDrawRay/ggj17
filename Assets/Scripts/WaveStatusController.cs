@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaveStatusController : MonoBehaviour
 {
-	protected Collider thisCollider;
+	public Collider thisCollider;
 
 	[Header("Wave Things")]
 	public GameObject[] waveDisplays;
@@ -21,9 +21,11 @@ public class WaveStatusController : MonoBehaviour
 	protected float negateAmount = 0.5f;
 	protected float scaleDecayRate = 0.05f;
 
+    public static WaveStatusController instance;
+
 	void Awake()
 	{
-		thisCollider = gameObject.GetComponent<Collider>();
+        instance = this;
 	}
 
 	void Update()
@@ -73,15 +75,17 @@ public class WaveStatusController : MonoBehaviour
 			//Call for enemy wave destruction
 			//TEMP CODE
 			Destroy(waveController.gameObject);
-		}
+            OceanBodySpawner.instance.RefillEnemies();
 
-		FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
+        }
+
+        FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
 		if (floatsamController != null)
 		{
 			//If wave is big enough to pick it up
 			if (scale > floatsamController.collectThreshold)
 			{
-				Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
+				//Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
 				RaycastHit hit = GetPointOnMesh();
 				Vector3 position = hit.point;
 				Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);

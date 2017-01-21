@@ -11,7 +11,7 @@ public class FloatsamController : MonoBehaviour
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
-	protected float speed = 10;
+	protected float speed = 50;
 
 	void Awake()
 	{
