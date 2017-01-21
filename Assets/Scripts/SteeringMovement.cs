@@ -17,7 +17,6 @@ public class SteeringMovement : MonoBehaviour
 
     public void MoveDirection(float direction)
     {
-        Debug.Log(direction);
         transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, moveSpeed * Time.deltaTime);
         Vector3 euler = transform.rotation.eulerAngles;
         euler.y = euler.y + (direction * turnSpeed);
