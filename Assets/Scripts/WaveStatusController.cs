@@ -8,14 +8,14 @@ public class WaveStatusController : MonoBehaviour
 	public Collider thisCollider;
 
 	[Header("Wave Properties")]
-	public GameObject[] waveDisplays;
-	public float[] waveChangeThresholds;
-	protected int currentWaveThreshold = 0;
     public float deathThreshold;
 
     public float scaleSpeed = 1;
     public float negateAmount = 0.5f;
     public float scaleDecayRate = 0.05f;
+
+	public float bottom;
+	public float top;
 
     [Header("Wave Visuals")]
     public SkinnedMeshRenderer skin;
@@ -25,8 +25,11 @@ public class WaveStatusController : MonoBehaviour
     
     public float crestScale = 10;
     private float currentFlatness = 0;
+
     [Header("Collectibles")]
-	public Transform CollectibleParent;
+	public Transform collectibleParent;
+	public Transform randomizer;
+	protected float randomizerThreshold = 12;
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -48,19 +51,6 @@ public class WaveStatusController : MonoBehaviour
 
         skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
         skin.SetBlendShapeWeight(flatBlend, currentFlatness);
-
-        /*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
-		{
-			waveDisplays[currentWaveThreshold + 1].SetActive(true);
-			waveDisplays[currentWaveThreshold].SetActive(false);
-			currentWaveThreshold++;
-		}
-		else if(currentWaveThreshold > 0 && scale < waveChangeThresholds[currentWaveThreshold])
-		{
-			waveDisplays[currentWaveThreshold - 1].SetActive(true);
-			waveDisplays[currentWaveThreshold].SetActive(false);
-			currentWaveThreshold--;
-		}*/
 
         if (transform.localScale.x <= deathThreshold)
 		{
@@ -95,7 +85,7 @@ public class WaveStatusController : MonoBehaviour
 			//Call for enemy wave destruction
 			//TEMP CODE
 			Destroy(waveController.gameObject);
-            OceanBodySpawner.instance.RefillEnemies();
+            //OceanBodySpawner.instance.RefillEnemies();
         }
 
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
@@ -104,7 +94,6 @@ public class WaveStatusController : MonoBehaviour
             //If wave is big enough to pick it up
             if (scale > floatsamController.collectThreshold)
             {
-                //Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
                 RaycastHit hit = GetPointOnMesh();
                 Vector3 position = hit.point;
                 Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
@@ -112,7 +101,7 @@ public class WaveStatusController : MonoBehaviour
                 GameObject attachPoint = new GameObject("AttachPoint");
                 attachPoint.transform.position = position;
                 attachPoint.transform.rotation = rotation;
-                attachPoint.transform.SetParent(CollectibleParent);
+                attachPoint.transform.SetParent(collectibleParent);
 
                 floatsamController.AttachToWave(this, attachPoint);
             }
@@ -121,18 +110,20 @@ public class WaveStatusController : MonoBehaviour
         if(obstacle)
         {
             OnDeath();
-            //Death thing here
         }
 	}
 
 	protected RaycastHit GetPointOnMesh()
 	{
-		float length = 100f;
-		float angleInRad = Random.Range(0f, 90f) * Mathf.Deg2Rad;
-		Vector2 pointOnCircle = (Random.insideUnitCircle.normalized) * Mathf.Sin(angleInRad);
-		Vector3 direction = new Vector3(pointOnCircle.y, Mathf.Cos(angleInRad), pointOnCircle.x);
+		//Randomize position of center;
+		Vector3 randomizerPos = randomizer.localPosition;
+		randomizerPos.x = Random.Range(-12f, 12f);
+		randomizer.localPosition = randomizerPos;
 
-		Ray ray = new Ray(transform.position + direction * length, -direction);
+		float length = 100f;
+		Vector3 direction = new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), Random.Range(-1, 1));
+		
+		Ray ray = new Ray(randomizer.position + direction * length, -direction);
 		RaycastHit hit;
 		thisCollider.Raycast(ray, out hit, length * 2);
 		return hit;
