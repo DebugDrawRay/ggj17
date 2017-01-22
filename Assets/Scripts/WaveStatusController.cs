@@ -14,9 +14,6 @@ public class WaveStatusController : MonoBehaviour
     public float negateAmount = 0.5f;
     public float scaleDecayRate = 0.05f;
 
-	public float bottom;
-	public float top;
-
     [Header("Wave Visuals")]
     public SkinnedMeshRenderer skin;
     public int crestBlend;
@@ -84,8 +81,9 @@ public class WaveStatusController : MonoBehaviour
 
 			//Call for enemy wave destruction
 			//TEMP CODE
-			Destroy(waveController.gameObject);
-            //OceanBodySpawner.instance.RefillEnemies();
+			//Destroy(waveController.gameObject);
+			OceanBodySpawner.instance.RefillEnemies();
+			waveController.OnDeath();
         }
 
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
