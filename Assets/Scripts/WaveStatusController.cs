@@ -23,6 +23,8 @@ public class WaveStatusController : MonoBehaviour
     public float crestScale = 10;
     private float currentFlatness = 0;
 
+    public GameObject onHit;
+
     [Header("Collectibles")]
 	public Transform collectibleParent;
 	public Transform randomizer;
@@ -116,7 +118,17 @@ public class WaveStatusController : MonoBehaviour
         death.OnComplete(() => { Destroy(gameObject); UIController.instance.DisplayResults(); });
     }
 
-	void OnTriggerEnter(Collider collider)
+    void HitReaction()
+    {
+        /*GameObject hit = Instantiate(onHit, transform.position, Quaternion.identity);
+        Vector3 scale = hit.transform.localScale;
+        scale.x *= transform.localScale.x;
+        scale.y *= transform.localScale.y;
+        scale.z *= transform.localScale.z;
+        hit.transform.localScale = scale;*/
+
+    }
+    void OnTriggerEnter(Collider collider)
 	{
 		//If Enemy Wave
 		EnemyWaveController waveController = collider.gameObject.GetComponent<EnemyWaveController>();
@@ -134,8 +146,9 @@ public class WaveStatusController : MonoBehaviour
 				scale = transform.localScale.x;
 				scale -= waveController.scale * negateAmount;
 			}
+            HitReaction();
 
-			OceanBodySpawner.instance.RefillEnemies();
+            OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
 
@@ -157,13 +170,15 @@ public class WaveStatusController : MonoBehaviour
 
                 floatsamController.AttachToWave(this, attachPoint);
             }
+            HitReaction();
         }
 
-		//If Obstacle
-		ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
+        //If Obstacle
+        ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
 		if (obstacle)
 		{
-			OnDeath();
+            HitReaction();
+            OnDeath();
 		}
 
 		//If Shoreline

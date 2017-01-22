@@ -4,7 +4,7 @@
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-
+		_Emission("Emission", Color) = (0,0,0,1)
 		_NormalMap("Normal Map", 2D) = "bump" {}
 
 		_BaseColor("Base Water Color", Color) = (0,0.2,0.8,1)
@@ -40,6 +40,7 @@
 
 		fixed4 _BaseColor;
 		fixed4 _FoamColor;
+		fixed4 _Emission;
 		float _FoamStrength;
 		float _FoamSpeed;
 
@@ -58,6 +59,7 @@
 			o.Smoothness = _Glossiness;
 			o.Alpha = c.a;
 			o.Normal = UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap));
+			o.Emission = _Emission;
 		}
 		ENDCG
 	}

@@ -47,8 +47,8 @@ public class UIController : MonoBehaviour
 		if (WaveStatusController.instance != null)
 		{
 			curentHeight.text = "HEIGHT: " + Mathf.CeilToInt(WaveStatusController.instance.scale) + "m";
-			//if (GameController.instance != null)
-			//	currentCollected.text = GameController.instance.Score.ToString();
+			if (GameController.instance != null)
+				currentCollected.text = GameController.instance.Score.ToString();
 		}
 	}
 
@@ -89,5 +89,10 @@ public class UIController : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StopGame()
+    {
+        Application.Quit();
     }
 }
