@@ -27,7 +27,6 @@ public class WaveStatusController : MonoBehaviour
 	public Transform collectibleParent;
 	public Transform randomizer;
 	protected float randomizerThreshold = 12;
-<<<<<<< HEAD
 
     [Header("Audio")]
     public AudioSource movementSource;
@@ -42,9 +41,6 @@ public class WaveStatusController : MonoBehaviour
     private int nextScale;
     //Controllers
     protected SteeringMovement steeringMovement;
-=======
-	
->>>>>>> origin/Amanda
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -55,12 +51,10 @@ public class WaveStatusController : MonoBehaviour
 	void Awake()
 	{
         instance = this;
-<<<<<<< HEAD
+
 		steeringMovement = GetComponent<SteeringMovement>();
         previousScale = -1;
         nextScale = 0;
-=======
->>>>>>> origin/Amanda
 	}
 
 	void Update()
