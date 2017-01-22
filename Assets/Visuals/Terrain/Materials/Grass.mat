@@ -111,7 +111,7 @@ Material:
       second: 0.02
     - first:
         name: _RimPower
-      second: 3
+      second: 6.07
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -136,4 +136,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _RimColor
-      second: {r: 1, g: 0.7411765, b: 0.41176474, a: 0}
+      second: {r: 0.35294116, g: 0.17610905, b: 0.096020766, a: 0}

@@ -5,20 +5,21 @@ using UnityEngine;
 public class DestructionController : MonoBehaviour
 {
 	protected Vector3 forceOrigin;
+	protected float destructionLifespan;
 
-	public void StartInflation(float speed)
+	public void StartInflation(float speed, float lifespan)
 	{
-		StartCoroutine(StartInflationWork(speed));
+		destructionLifespan = lifespan;
+		StartCoroutine(StartInflationWork(speed, lifespan));
 		forceOrigin = transform.position;
-		forceOrigin.y -= 1;
+		forceOrigin.y = -100;
 	}
 
-	protected IEnumerator StartInflationWork(float speed)
+	protected IEnumerator StartInflationWork(float speed, float lifespan)
 	{
 		float time = 0;
-		float crashTime = 3;
 		float s = 0;
-		while (time < crashTime)
+		while (time < lifespan)
 		{
 			transform.localScale = new Vector3(s, s, s);
 			s += Time.deltaTime * speed;
@@ -35,7 +36,10 @@ public class DestructionController : MonoBehaviour
 
 		if (rigidBody != null)
 		{
+			rigidBody.isKinematic = false;
+			rigidBody.useGravity = true;
 			rigidBody.AddForce((collider.gameObject.transform.position - forceOrigin) * 200f);
+			rigidBody.AddTorque(Vector3.left * 100);
 			collider.enabled = false;
 		}
 		else
