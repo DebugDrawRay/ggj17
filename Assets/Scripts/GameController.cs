@@ -4,62 +4,90 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-	public static GameController instance;
+    public enum State
+    {
+        Start,
+        Pause,
+        InGame,
+        End
+    }
+    public State currentState;
 
-	protected int score;
-	public int Score { get { return score; } }
+    public static GameController instance;
 
-	protected int numberOfFloatsam;
-	public int NumberOfFloatsam { get { return numberOfFloatsam; } }
+    void Awake()
+    {
+        instance = this;
+    }
+    void Update()
+    {
+        RunStates();
+    }
 
-	protected int numberOfDestroyedObjects;
-	public int NumberOfDestroyedObjects { get { return numberOfDestroyedObjects; } }
+    void RunStates()
+    {
+        switch(currentState)
+        {
+            case State.Start:
+                break;
+            case State.Pause:
+                break;
+            case State.InGame:
+                break;
+            case State.End:
+                break;
+        }
+    }
 
-	protected float finalWaveHeight;
-	public float FinalWaveHeight { get { return finalWaveHeight; } }
+    protected int score;
+    public int Score { get { return score; } }
 
-	void Awake()
-	{
-		instance = this;
-	}
+    protected int numberOfFloatsam;
+    public int NumberOfFloatsam { get { return numberOfFloatsam; } }
 
-	public void AddToScore(int scoreToAdd)
-	{
-		score += scoreToAdd;
-	}
+    protected int numberOfDestroyedObjects;
+    public int NumberOfDestroyedObjects { get { return numberOfDestroyedObjects; } }
 
-	public void RemoveFromScore(int scoreToRemove)
-	{
-		score -= scoreToRemove;
-	}
+    protected float finalWaveHeight;
+    public float FinalWaveHeight { get { return finalWaveHeight; } }
 
-	public void ResetScore()
-	{
-		score = 0;
-	}
+    public void AddToScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+    }
 
-	public void IncramentFloatsam(int numberOfObjects = 1)
-	{
-		numberOfFloatsam += numberOfObjects;
-	}
+    public void RemoveFromScore(int scoreToRemove)
+    {
+        score -= scoreToRemove;
+    }
 
-	public void DecramentFloatsam(int numberOfObjects = 1)
-	{
-		numberOfFloatsam -= numberOfObjects;
-	}
+    public void ResetScore()
+    {
+        score = 0;
+    }
 
-	public void IncramentDestroyedObjects(int numberOfObjects = 1)
-	{
-		numberOfDestroyedObjects += numberOfObjects;
-	}
+    public void IncramentFloatsam(int numberOfObjects = 1)
+    {
+        numberOfFloatsam += numberOfObjects;
+    }
 
-	public void DecramentDestroyedObjects(int numberOfObjects = 1)
-	{
-		numberOfDestroyedObjects -= numberOfObjects;
-	}
+    public void DecramentFloatsam(int numberOfObjects = 1)
+    {
+        numberOfFloatsam -= numberOfObjects;
+    }
 
-	public void SetFinalWaveHeight(float height)
-	{
-		finalWaveHeight = height;
-	}
+    public void IncramentDestroyedObjects(int numberOfObjects = 1)
+    {
+        numberOfDestroyedObjects += numberOfObjects;
+    }
+
+    public void DecramentDestroyedObjects(int numberOfObjects = 1)
+    {
+        numberOfDestroyedObjects -= numberOfObjects;
+    }
+
+    public void SetFinalWaveHeight(float height)
+    {
+        finalWaveHeight = height;
+    }
 }
