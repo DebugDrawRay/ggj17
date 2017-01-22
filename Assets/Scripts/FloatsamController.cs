@@ -5,6 +5,7 @@ using UnityEngine;
 public class FloatsamController : MonoBehaviour
 {
 	public float collectThreshold;
+	public int pickupScore;
 
 	protected Collider theCollider;
 	protected Rigidbody theRigidBody;
@@ -50,12 +51,18 @@ public class FloatsamController : MonoBehaviour
 			
 			if (attachedWave.scale < collectThreshold)
 			{
+				if (GameController.instance != null)
+				{
+					GameController.instance.RemoveFromScore(pickupScore);
+					GameController.instance.DecramentFloatsam();
+				}
 				Detach();
 			}
 		}
 
 		if (attached && attachPoint == null)
 		{
+			theCollider.enabled = true;
 			Detach();
 		}
 
@@ -75,8 +82,15 @@ public class FloatsamController : MonoBehaviour
 
 	public void AttachToWave(WaveStatusController waveController, GameObject waveAttachPoint)
 	{
+		Debug.Log("Attach to wave: " + gameObject.name);
 		attachedWave = waveController;
 		attachPoint = waveAttachPoint;
-		//theCollider.enabled = false;
+		theCollider.enabled = false;
+
+		if (GameController.instance != null)
+		{
+			GameController.instance.AddToScore(pickupScore);
+			GameController.instance.IncramentFloatsam();
+		}
 	}
 }

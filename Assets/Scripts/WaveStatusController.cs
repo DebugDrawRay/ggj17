@@ -140,6 +140,9 @@ public class WaveStatusController : MonoBehaviour
 
 	protected IEnumerator WaveCrash()
 	{
+		if (GameController.instance != null)
+			GameController.instance.SetFinalWaveHeight(scale);
+
 		GameObject destructor = new GameObject("DestructionSpehere");
 		destructor.transform.position = transform.position;
 		SphereCollider destructorCollider = destructor.AddComponent<SphereCollider>();
@@ -153,12 +156,12 @@ public class WaveStatusController : MonoBehaviour
 
 		float time = 0;
 		float crashTime = 3;
-		float scale = 0;
+		float s = 0;
 		float speed = steeringMovement.moveSpeed;
 		while (time < crashTime)
 		{
-			destructor.transform.localScale = new Vector3(scale, scale, scale);
-			scale += Time.deltaTime * speed * 2;
+			destructor.transform.localScale = new Vector3(s, s, s);
+			s += Time.deltaTime * speed * 2;
 			time += Time.deltaTime;
 			yield return null;
 		}
