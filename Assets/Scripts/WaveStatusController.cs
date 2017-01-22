@@ -40,26 +40,29 @@ public class WaveStatusController : MonoBehaviour
 
 	void Update()
 	{
-		//Scale Down over time
-		scale -= scaleDecayRate * Time.deltaTime;
+        if (GameController.instance.currentState == GameController.State.InGame)
+        {
+            //Scale Down over time
+            scale -= scaleDecayRate * Time.deltaTime;
 
-		//Move scale of wave toward desired scale
-		transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
+            //Move scale of wave toward desired scale
+            transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
 
-        skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
-        skin.SetBlendShapeWeight(flatBlend, currentFlatness);
+            skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
+            skin.SetBlendShapeWeight(flatBlend, currentFlatness);
 
-        if (transform.localScale.x <= deathThreshold)
-		{
-            OnDeath();
-		}
+            if (transform.localScale.x <= deathThreshold)
+            {
+                OnDeath();
+            }
+        }
 	}
 
     void OnDeath()
     {
         Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 1);
         death.SetEase(Ease.Linear);
-        death.OnComplete(() => Destroy(gameObject));
+        death.OnComplete(() => { Destroy(gameObject); UIController.instance.DisplayResults(); });
     }
 
 	void OnTriggerEnter(Collider collider)
