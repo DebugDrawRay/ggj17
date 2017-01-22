@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 10c5dea8ebd845b479895edf214bf4a5
+timeCreated: 1485054228
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: A DAY WITHOUT SUN
+  fontNames:
+  - A DAY WITHOUT SUN
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
