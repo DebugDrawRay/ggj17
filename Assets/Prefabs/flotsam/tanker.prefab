@@ -418,6 +418,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectThreshold: 10
   pickupScore: 0
+  move: {fileID: 0}
+  timeToRotateRange: {x: 0, y: 0}
+  pauseRotateRange: {x: 0, y: 0}
 --- !u!114 &114683062619507592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,7 +469,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1267015087973248}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 1
   speed: 1
   looping: 1
   prewarm: 1
@@ -519,7 +522,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 20
+      scalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -888,7 +891,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     randomizeRotationDirection: 1
-    maxNumParticles: 6000
+    maxNumParticles: 500
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -957,7 +960,7 @@ ParticleSystem:
     enabled: 1
     serializedVersion: 3
     rateOverTime:
-      scalar: 200
+      scalar: 50
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1061,16 +1064,22 @@ ParticleSystem:
           outSlope: 0
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.12432772
-          value: 0.9756098
-          inSlope: -1.0072856
-          outSlope: -1.0072856
+          time: 0.36906028
+          value: 1
+          inSlope: -0.13609056
+          outSlope: -0.13609056
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.3144246
+          time: 0.58746403
+          value: 1
+          inSlope: -0.21663709
+          outSlope: -0.21663709
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 1
           value: 0
-          inSlope: -14.163578
-          outSlope: -14.163578
+          inSlope: -1.8162321
+          outSlope: -1.8162321
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -1529,7 +1538,7 @@ ParticleSystem:
     enabled: 1
     m_Mode: 0
     m_Curve:
-      scalar: 0
+      scalar: -0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
