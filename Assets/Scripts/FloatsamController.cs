@@ -23,7 +23,10 @@ public class FloatsamController : MonoBehaviour
     private float currentPauseRotate;
     private float currentTimeToRotate;
 
-	void Awake()
+    public ParticleSystem disableOnPickup;
+    public AudioSource disableAudioOnPickup;
+
+    void Awake()
 	{
 		theCollider = gameObject.GetComponent<Collider>();
 		theRigidBody = gameObject.GetComponent<Rigidbody>();
@@ -35,6 +38,17 @@ public class FloatsamController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, startRot, 0);
     }
 
+    void Deactivate()
+    {
+        if (disableOnPickup)
+        {
+            disableOnPickup.Stop();
+        }
+        if(disableAudioOnPickup)
+        {
+            disableAudioOnPickup.enabled = false;
+        }
+    }
     void Update()
 	{
 		if (attachPoint != null)
@@ -139,6 +153,7 @@ public class FloatsamController : MonoBehaviour
 				GameController.instance.AddToScore(pickupScore);
 				GameController.instance.IncramentFloatsam();
 			}
+            Deactivate();
 		}
 	}
 }

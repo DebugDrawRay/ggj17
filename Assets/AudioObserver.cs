@@ -6,6 +6,10 @@ using DG.Tweening;
 public class AudioObserver : MonoBehaviour
 {
     public AudioSource[] musicTracks;
+    public AudioSource endCueSource;
+    public AudioClip loseClip;
+    public AudioClip winClip;
+
     private int currentTrack;
 
     public static AudioObserver instance;
@@ -42,5 +46,19 @@ public class AudioObserver : MonoBehaviour
     public void ChangeTrack(int index)
     {
         currentTrack = index;
+    }
+
+    public void TriggerEndGame(bool win)
+    {
+        musicTracks[currentTrack].DOFade(0, .5f);
+        if (win)
+        {
+            endCueSource.clip = winClip;
+        }
+        else
+        {
+            endCueSource.clip = loseClip;
+        }
+        endCueSource.Play();
     }
 }

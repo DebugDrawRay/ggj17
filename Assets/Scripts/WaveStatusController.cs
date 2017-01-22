@@ -38,6 +38,7 @@ public class WaveStatusController : MonoBehaviour
     public AudioClip[] scaleDownClips;
     public AudioSource collisionSource;
     public AudioClip collisionClip;
+    public AudioClip collectClip;
 
     private int previousScale;
     private int nextScale;
@@ -77,6 +78,7 @@ public class WaveStatusController : MonoBehaviour
             if (transform.localScale.x <= deathThreshold)
             {
                 OnDeath();
+                AudioObserver.instance.TriggerEndGame(false);
             }
             if (!movementSource.isPlaying)
             {
@@ -147,7 +149,8 @@ public class WaveStatusController : MonoBehaviour
 				scale -= waveController.scale * negateAmount;
 			}
             HitReaction();
-
+            collisionSource.clip = collisionClip;
+            collisionSource.Play();
             OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
@@ -169,6 +172,8 @@ public class WaveStatusController : MonoBehaviour
                 attachPoint.transform.SetParent(collectibleParent);
 
                 floatsamController.AttachToWave(this, attachPoint);
+                collisionSource.clip = collectClip;
+                collisionSource.Play();
             }
             HitReaction();
         }
@@ -177,6 +182,8 @@ public class WaveStatusController : MonoBehaviour
         ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
 		if (obstacle)
 		{
+            collisionSource.clip = collisionClip;
+            collisionSource.Play();
             HitReaction();
             OnDeath();
 		}
@@ -206,7 +213,8 @@ public class WaveStatusController : MonoBehaviour
 
 	protected void WaveCrash()
 	{
-		if (GameController.instance != null)
+        AudioObserver.instance.TriggerEndGame(true);
+        if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
 
 		GameObject destructor = new GameObject("DestructionSpehere");

@@ -18,5 +18,9 @@ public class WaveController : MonoBehaviour
         {
             steering.MoveDirection(input.Steer.Value);
         }
+        if(input.Quit.WasPressed)
+        {
+            Application.Quit();
+        }
     }
 }

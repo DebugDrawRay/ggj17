@@ -29,6 +29,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1157103774876768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4367410860615098}
+  m_Layer: 0
+  m_Name: propCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1225135991788076
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +202,19 @@ Transform:
   m_Father: {fileID: 4629253044890954}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -176.687, y: 45.095993, z: -3.3179932}
+--- !u!4 &4367410860615098
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157103774876768}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -493, y: 0, z: 841}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4629253044890954}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4409196091613578
 Transform:
   m_ObjectHideFlags: 1
@@ -215,6 +243,7 @@ Transform:
   - {fileID: 4163820492557554}
   - {fileID: 4662555345703534}
   - {fileID: 4863871862742314}
+  - {fileID: 4367410860615098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -536,28 +565,28 @@ MonoBehaviour:
   flotsamSpawnGroups:
   - flotsam: {fileID: 1229889193612292, guid: 40d7f5e21b2b6d54691bb95b632856eb, type: 2}
     range:
-      min: 10
-      max: 25
-  - flotsam: {fileID: 1166199117460696, guid: b7d825fb56d0f6048a1e14f3b9650894, type: 2}
-    range:
-      min: 1
-      max: 3
-  - flotsam: {fileID: 1792563319012914, guid: 078a686160cbb524d9eb4e02086ec172, type: 2}
-    range:
       min: 25
       max: 50
+  - flotsam: {fileID: 1166199117460696, guid: b7d825fb56d0f6048a1e14f3b9650894, type: 2}
+    range:
+      min: 2
+      max: 5
+  - flotsam: {fileID: 1792563319012914, guid: 078a686160cbb524d9eb4e02086ec172, type: 2}
+    range:
+      min: 40
+      max: 60
   - flotsam: {fileID: 1640697020836000, guid: e26d6adb459e2c84b853c78f8fd38ce3, type: 2}
     range:
-      min: 50
-      max: 100
+      min: 75
+      max: 150
   - flotsam: {fileID: 1455394569369194, guid: b3954e51154a25e4eabdc3408c333d31, type: 2}
     range:
-      min: 50
-      max: 100
+      min: 75
+      max: 150
   - flotsam: {fileID: 1723148014070504, guid: 7f1ae9aa72b1e694eb5a30fce6c6f81f, type: 2}
     range:
-      min: 50
-      max: 100
+      min: 75
+      max: 150
   obstacles: []
   enemySpawnRange:
     min: 250
@@ -565,7 +594,9 @@ MonoBehaviour:
   obstacleSpawnRange:
     min: 0
     max: 0
-  spawnRange: {x: 50, y: 400}
+  enemySpawnRadius: {x: 25, y: 400}
+  bodySpawnRadius: 1200
+  bodySpawnCenter: {fileID: 4367410860615098}
   refillRadius: 250
   scaleMatchRange: {x: 0.75, y: 1}
   spawnOrigin: {fileID: 0}

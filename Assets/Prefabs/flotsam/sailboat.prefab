@@ -256,6 +256,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectThreshold: 0
   pickupScore: 0
+  move: {fileID: 0}
+  timeToRotateRange: {x: 0, y: 0}
+  pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 0}
+  disableAudioOnPickup: {fileID: 82697208819085726}
 --- !u!136 &136069268945897840
 CapsuleCollider:
   m_ObjectHideFlags: 1
