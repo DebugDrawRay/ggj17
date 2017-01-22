@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform playerTarget;
-    public Vector3 offset;
+    public float followDistance;
+    public float followHeight;
     public float followAccel;
     public MeshFilter mesh;
 
@@ -30,8 +31,11 @@ public class CameraController : MonoBehaviour
 
     void FollowPlayer()
     {
-        Vector3 adjOffset = offset * WaveStatusController.instance.transform.localScale.x;
-        Vector3 pos = playerTarget.position + adjOffset;
-        transform.position = Vector3.Lerp(transform.position, pos, followAccel);
+        float adjHeight = followHeight * WaveStatusController.instance.transform.localScale.x;
+        float adjDist = followDistance * WaveStatusController.instance.transform.localScale.x;
+
+        Vector3 distance = playerTarget.position + (-transform.forward * adjDist);
+        distance.y = playerTarget.position.y + adjHeight;
+        transform.position = Vector3.Lerp(transform.position, distance, followAccel * Time.deltaTime);
     }
 }
