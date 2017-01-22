@@ -83,13 +83,8 @@ public class WaveStatusController : MonoBehaviour
             }
             CheckScale();
         }
-<<<<<<< HEAD
-    }
-=======
-        CheckScale();
 	}
 
->>>>>>> origin/Amanda
     void CheckScale()
     {
         if(nextScale < scaleThresholds.Length && transform.localScale.x > scaleThresholds[nextScale] && nextScale < scaleThresholds.Length)
