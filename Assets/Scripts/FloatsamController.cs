@@ -11,7 +11,9 @@ public class FloatsamController : MonoBehaviour
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
-	protected float speed = 50;
+	protected float speed = 5;
+	protected float speedIncrament = 25;
+	protected bool attached = false;
 
 	void Awake()
 	{
@@ -23,8 +25,19 @@ public class FloatsamController : MonoBehaviour
 	{
 		if (attachPoint != null)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, attachPoint.transform.position, speed * Time.deltaTime);
-			transform.rotation = attachPoint.transform.rotation;
+			if (!attached)
+			{
+				transform.position = Vector3.MoveTowards(transform.position, attachPoint.transform.position, speed * Time.deltaTime);
+				transform.rotation = attachPoint.transform.rotation;
+				speed += Time.deltaTime * speedIncrament;
+
+				if (transform.position == attachPoint.transform.position)
+					attached = true;
+			}
+			else
+			{
+				transform.position = attachPoint.transform.position;
+			}
 			
 			if (attachedWave.scale < collectThreshold)
 			{
