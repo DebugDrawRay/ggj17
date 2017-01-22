@@ -14,6 +14,7 @@ public class EnemyWaveController : MonoBehaviour
 
     void Update()
     {
+        scale = transform.localScale.x;
         move.MoveDirection(0);
     }
 }

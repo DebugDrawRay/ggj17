@@ -1,25 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class WaveStatusController : MonoBehaviour
 {
 	public Collider thisCollider;
 
-	[Header("Wave Things")]
+	[Header("Wave Properties")]
 	public GameObject[] waveDisplays;
 	public float[] waveChangeThresholds;
 	protected int currentWaveThreshold = 0;
+    public float deathThreshold;
 
-	[Header("Collectible Things")]
+    public float scaleSpeed = 1;
+    public float negateAmount = 0.5f;
+    public float scaleDecayRate = 0.05f;
+
+    [Header("Wave Visuals")]
+    public SkinnedMeshRenderer skin;
+    public int crestBlend;
+    public int heightBlend;
+    public int flatBlend;
+    
+    public float crestScale = 10;
+    private float currentFlatness = 0;
+    [Header("Collectibles")]
 	public Transform CollectibleParent;
 
 	[HideInInspector]
 	public float scale = 1f;
-
-	protected float scaleSpeed = 1;
-	protected float negateAmount = 0.5f;
-	protected float scaleDecayRate = 0.05f;
 
     public static WaveStatusController instance;
 
@@ -36,7 +46,10 @@ public class WaveStatusController : MonoBehaviour
 		//Move scale of wave toward desired scale
 		transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
 
-		if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
+        skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
+        skin.SetBlendShapeWeight(flatBlend, currentFlatness);
+
+        /*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
 		{
 			waveDisplays[currentWaveThreshold + 1].SetActive(true);
 			waveDisplays[currentWaveThreshold].SetActive(false);
@@ -47,13 +60,20 @@ public class WaveStatusController : MonoBehaviour
 			waveDisplays[currentWaveThreshold - 1].SetActive(true);
 			waveDisplays[currentWaveThreshold].SetActive(false);
 			currentWaveThreshold--;
-		}
+		}*/
 
-		if (scale <= 0)
+        if (transform.localScale.x <= deathThreshold)
 		{
-			//Death
+            OnDeath();
 		}
 	}
+
+    void OnDeath()
+    {
+        Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 1);
+        death.SetEase(Ease.Linear);
+        death.OnComplete(() => Destroy(gameObject));
+    }
 
 	void OnTriggerEnter(Collider collider)
 	{
@@ -76,28 +96,33 @@ public class WaveStatusController : MonoBehaviour
 			//TEMP CODE
 			Destroy(waveController.gameObject);
             OceanBodySpawner.instance.RefillEnemies();
-
         }
 
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
-		if (floatsamController != null)
-		{
-			//If wave is big enough to pick it up
-			if (scale > floatsamController.collectThreshold)
-			{
-				//Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
-				RaycastHit hit = GetPointOnMesh();
-				Vector3 position = hit.point;
-				Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+        if (floatsamController != null)
+        {
+            //If wave is big enough to pick it up
+            if (scale > floatsamController.collectThreshold)
+            {
+                //Mesh currentMesh = waveDisplays[currentWaveThreshold].GetComponent<MeshFilter>().mesh;
+                RaycastHit hit = GetPointOnMesh();
+                Vector3 position = hit.point;
+                Quaternion rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
-				GameObject attachPoint = new GameObject("AttachPoint");
-				attachPoint.transform.position = position;
-				attachPoint.transform.rotation = rotation;
-				attachPoint.transform.SetParent(CollectibleParent);
+                GameObject attachPoint = new GameObject("AttachPoint");
+                attachPoint.transform.position = position;
+                attachPoint.transform.rotation = rotation;
+                attachPoint.transform.SetParent(CollectibleParent);
 
-				floatsamController.AttachToWave(this, attachPoint);
-			}
-		}
+                floatsamController.AttachToWave(this, attachPoint);
+            }
+        }
+        ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
+        if(obstacle)
+        {
+            OnDeath();
+            //Death thing here
+        }
 	}
 
 	protected RaycastHit GetPointOnMesh()
