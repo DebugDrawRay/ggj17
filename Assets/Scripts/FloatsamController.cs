@@ -11,8 +11,8 @@ public class FloatsamController : MonoBehaviour
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
-	protected float speed = 5;
-	protected float speedIncrament = 25;
+	protected float speed = 10;
+	protected float speedIncrament = 50;
 	protected bool attached = false;
 
     public SteeringMovement move;
@@ -45,16 +45,18 @@ public class FloatsamController : MonoBehaviour
 			else
 			{
 				transform.position = attachPoint.transform.position;
+				transform.rotation = attachPoint.transform.rotation;
 			}
 			
 			if (attachedWave.scale < collectThreshold)
 			{
-				Debug.Log("DETATCH!");
-				Destroy(attachPoint);
-				attachPoint = null;
-				theRigidBody.isKinematic = false;
-				theRigidBody.useGravity = true;
+				Detach();
 			}
+		}
+
+		if (attached && attachPoint == null)
+		{
+			Detach();
 		}
 
 		if (transform.position.y < -10)
@@ -63,11 +65,18 @@ public class FloatsamController : MonoBehaviour
 		}
 	}
 
+	protected void Detach()
+	{
+		Destroy(attachPoint);
+		attachPoint = null;
+		theRigidBody.isKinematic = false;
+		theRigidBody.useGravity = true;
+	}
+
 	public void AttachToWave(WaveStatusController waveController, GameObject waveAttachPoint)
 	{
 		attachedWave = waveController;
 		attachPoint = waveAttachPoint;
-		Debug.Log("Wave Attach:" + waveAttachPoint.name);
-		theCollider.enabled = false;
+		//theCollider.enabled = false;
 	}
 }
