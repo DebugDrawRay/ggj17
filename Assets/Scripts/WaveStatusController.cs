@@ -28,6 +28,9 @@ public class WaveStatusController : MonoBehaviour
 	public Transform randomizer;
 	protected float randomizerThreshold = 12;
 
+	//Controllers
+	protected SteeringMovement steeringMovement;
+
 	[HideInInspector]
 	public float scale = 1f;
 
@@ -36,6 +39,7 @@ public class WaveStatusController : MonoBehaviour
 	void Awake()
 	{
         instance = this;
+		steeringMovement = GetComponent<SteeringMovement>();
 	}
 
 	void Update()
@@ -67,6 +71,7 @@ public class WaveStatusController : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
+		//If Enemy Wave
 		EnemyWaveController waveController = collider.gameObject.GetComponent<EnemyWaveController>();
 		if (waveController != null)
 		{
@@ -82,13 +87,11 @@ public class WaveStatusController : MonoBehaviour
 				scale -= waveController.scale * negateAmount;
 			}
 
-			//Call for enemy wave destruction
-			//TEMP CODE
-			//Destroy(waveController.gameObject);
 			OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
 
+		//If Floatsam
         FloatsamController floatsamController = collider.gameObject.GetComponent<FloatsamController>();
         if (floatsamController != null)
         {
@@ -107,11 +110,19 @@ public class WaveStatusController : MonoBehaviour
                 floatsamController.AttachToWave(this, attachPoint);
             }
         }
-        ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
-        if(obstacle)
-        {
-            OnDeath();
-        }
+
+		//If Obstacle
+		ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
+		if (obstacle)
+		{
+			OnDeath();
+		}
+
+		//If Shoreline
+		if (collider.tag == "Shoreline")
+		{
+			StartCoroutine(WaveCrash());
+		}
 	}
 
 	protected RaycastHit GetPointOnMesh()
@@ -128,5 +139,34 @@ public class WaveStatusController : MonoBehaviour
 		RaycastHit hit;
 		thisCollider.Raycast(ray, out hit, length * 2);
 		return hit;
+	}
+
+	protected IEnumerator WaveCrash()
+	{
+		if (GameController.instance != null)
+			GameController.instance.SetFinalWaveHeight(scale);
+
+		GameObject destructor = new GameObject("DestructionSpehere");
+		destructor.transform.position = transform.position;
+		SphereCollider destructorCollider = destructor.AddComponent<SphereCollider>();
+		Rigidbody destructorRigidbody = destructor.AddComponent<Rigidbody>();
+		destructorRigidbody.useGravity = false;
+		destructorRigidbody.isKinematic = true;
+
+		//Play Death Anim
+		OnDeath();
+		Destroy(collectibleParent.gameObject);
+
+		float time = 0;
+		float crashTime = 3;
+		float s = 0;
+		float speed = steeringMovement.moveSpeed;
+		while (time < crashTime)
+		{
+			destructor.transform.localScale = new Vector3(s, s, s);
+			s += Time.deltaTime * speed * 2;
+			time += Time.deltaTime;
+			yield return null;
+		}
 	}
 }
