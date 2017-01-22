@@ -17,8 +17,6 @@ public class FloatsamController : MonoBehaviour
 	protected bool attached = false;
 	protected bool pickupable = true;
 
-    public SteeringMovement move;
-
 	void Awake()
 	{
 		theCollider = gameObject.GetComponent<Collider>();
