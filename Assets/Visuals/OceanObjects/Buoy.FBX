@@ -11,10 +11,10 @@ FBXHeaderExtension:  {
 		Year: 2017
 		Month: 1
 		Day: 21
-		Hour: 18
-		Minute: 34
-		Second: 31
-		Millisecond: 441
+		Hour: 21
+		Minute: 8
+		Second: 2
+		Millisecond: 683
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.0"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -36,13 +36,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2014"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "22/01/2017 02:34:31.440"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "22/01/2017 05:08:02.682"
 			P: "Original|FileName", "KString", "", "", "F:\GameDev\GG17\Assets\Visuals\Buoy.FBX"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2014"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "22/01/2017 02:34:31.440"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "22/01/2017 05:08:02.682"
 		}
 	}
 }
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1832943856, "", "Scene" {
+	Document: 2355167232, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -255,7 +255,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 1851546960, "Geometry::", "Mesh" {
+	Geometry: 2357454704, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.552941176470588,0.0274509803921569,0.227450980392157
 		}
@@ -419,7 +419,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 1852158656, "Model::Cylinder001", "Mesh" {
+	Model: 2400910352, "Model::Cylinder001", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -427,7 +427,7 @@ Objects:  {
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Scaling", "Lcl Scaling", "", "A",0.0254,0.0254,0.0254
+			P: "Lcl Scaling", "Lcl Scaling", "", "A",0.0600500410079956,0.0600500410079956,0.0600500410079956
 			P: "mr displacement use global settings", "Bool", "", "AU",1
 			P: "mr displacement view dependent", "Bool", "", "AU",1
 			P: "mr displacement method", "Integer", "", "AU",6,6,6
@@ -440,7 +440,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 1849914496, "Material::Buoy", "" {
+	Material: 1855791168, "Material::Buoy", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -462,13 +462,13 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	AnimationStack: 2026364352, "AnimStack::Take 001", "" {
+	AnimationStack: 1686388576, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",153953860000
 			P: "ReferenceStop", "KTime", "Time", "",153953860000
 		}
 	}
-	AnimationLayer: 1216437984, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 2354403472, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -478,16 +478,16 @@ Objects:  {
 Connections:  {
 	
 	;Model::Cylinder001, Model::RootNode
-	C: "OO",1852158656,0
+	C: "OO",2400910352,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",1216437984,2026364352
+	C: "OO",2354403472,1686388576
 	
 	;Geometry::, Model::Cylinder001
-	C: "OO",1851546960,1852158656
+	C: "OO",2357454704,2400910352
 	
 	;Material::Buoy, Model::Cylinder001
-	C: "OO",1849914496,1852158656
+	C: "OO",1855791168,2400910352
 }
 ;Takes section
 ;----------------------------------------------------
