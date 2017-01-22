@@ -9,7 +9,7 @@ public class WaveStatusController : MonoBehaviour
 
 	[Header("Wave Properties")]
     public float deathThreshold;
-
+    public float[] scaleThresholds;
     public float scaleSpeed = 1;
     public float negateAmount = 0.5f;
     public float scaleDecayRate = 0.05f;
@@ -28,8 +28,19 @@ public class WaveStatusController : MonoBehaviour
 	public Transform randomizer;
 	protected float randomizerThreshold = 12;
 
-	//Controllers
-	protected SteeringMovement steeringMovement;
+    [Header("Audio")]
+    public AudioSource movementSource;
+    public AudioClip[] movementClips;
+    public AudioSource scaleSource;
+    public AudioClip[] scaleUpClips;
+    public AudioClip[] scaleDownClips;
+    public AudioSource collisionSource;
+    public AudioClip collisionClip;
+
+    private int previousScale;
+    private int nextScale;
+    //Controllers
+    protected SteeringMovement steeringMovement;
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -40,6 +51,8 @@ public class WaveStatusController : MonoBehaviour
 	{
         instance = this;
 		steeringMovement = GetComponent<SteeringMovement>();
+        previousScale = -1;
+        nextScale = 0;
 	}
 
 	void Update()
@@ -60,8 +73,25 @@ public class WaveStatusController : MonoBehaviour
                 OnDeath();
             }
         }
+        CheckScale();
 	}
-
+    void CheckScale()
+    {
+        if(transform.localScale.x > scaleThresholds[nextScale] && nextScale < scaleThresholds.Length)
+        {
+            scaleSource.clip = scaleUpClips[nextScale];
+            scaleSource.Play();
+            previousScale = nextScale;
+            nextScale++;
+        }
+        if(previousScale >= 0 && transform.localScale.x < scaleThresholds[previousScale])
+        {
+            scaleSource.clip = scaleDownClips[previousScale];
+            scaleSource.Play();
+            nextScale = previousScale;
+            previousScale--;
+        }
+    }
     void OnDeath()
     {
         Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 1);
