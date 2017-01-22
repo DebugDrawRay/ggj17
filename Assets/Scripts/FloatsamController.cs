@@ -5,15 +5,18 @@ using UnityEngine;
 public class FloatsamController : MonoBehaviour
 {
 	public float collectThreshold;
+	public int pickupScore;
 
 	protected Collider theCollider;
 	protected Rigidbody theRigidBody;
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
-	protected float speed = 5;
-	protected float speedIncrament = 25;
+	protected float speed = 10;
+	protected float speedIncrament = 50;
 	protected bool attached = false;
+
+    public SteeringMovement move;
 
 	void Awake()
 	{
@@ -21,7 +24,13 @@ public class FloatsamController : MonoBehaviour
 		theRigidBody = gameObject.GetComponent<Rigidbody>();
 	}
 
-	void Update()
+    void Start()
+    {
+        float startRot = Random.Range(0, 360);
+        transform.rotation = Quaternion.Euler(0, startRot, 0);
+    }
+
+    void Update()
 	{
 		if (attachPoint != null)
 		{
@@ -37,16 +46,24 @@ public class FloatsamController : MonoBehaviour
 			else
 			{
 				transform.position = attachPoint.transform.position;
+				transform.rotation = attachPoint.transform.rotation;
 			}
 			
 			if (attachedWave.scale < collectThreshold)
 			{
-				Debug.Log("DETATCH!");
-				Destroy(attachPoint);
-				attachPoint = null;
-				theRigidBody.isKinematic = false;
-				theRigidBody.useGravity = true;
+				if (GameController.instance != null)
+				{
+					GameController.instance.RemoveFromScore(pickupScore);
+					GameController.instance.DecramentFloatsam();
+				}
+				Detach();
 			}
+		}
+
+		if (attached && attachPoint == null)
+		{
+			theCollider.enabled = true;
+			Detach();
 		}
 
 		if (transform.position.y < -10)
@@ -55,11 +72,25 @@ public class FloatsamController : MonoBehaviour
 		}
 	}
 
+	protected void Detach()
+	{
+		Destroy(attachPoint);
+		attachPoint = null;
+		theRigidBody.isKinematic = false;
+		theRigidBody.useGravity = true;
+	}
+
 	public void AttachToWave(WaveStatusController waveController, GameObject waveAttachPoint)
 	{
+		Debug.Log("Attach to wave: " + gameObject.name);
 		attachedWave = waveController;
 		attachPoint = waveAttachPoint;
-		Debug.Log("Wave Attach:" + waveAttachPoint.name);
 		theCollider.enabled = false;
+
+		if (GameController.instance != null)
+		{
+			GameController.instance.AddToScore(pickupScore);
+			GameController.instance.IncramentFloatsam();
+		}
 	}
 }
