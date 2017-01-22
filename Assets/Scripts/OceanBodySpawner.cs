@@ -80,10 +80,13 @@ public class OceanBodySpawner : MonoBehaviour
 
     public void RefillEnemies()
     {
-        Vector3 pos = GetRandomPosition(spawnOrigin.position);
-        GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
-        Vector3 scale = AddRandomScale(spawnOrigin.localScale);
-        newEnemy.transform.localScale = scale;
+		if (Random.Range(0f, 1f) < 0.2f)
+		{
+			Vector3 pos = GetRandomPosition(spawnOrigin.position);
+			GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
+			Vector3 scale = AddRandomScale(spawnOrigin.localScale);
+			newEnemy.transform.localScale = scale;
+		}
     }
 
     Vector3 GetRandomPosition(Vector3 center)
