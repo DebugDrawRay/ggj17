@@ -18,10 +18,13 @@ public class WaveStatusController : MonoBehaviour
     public SkinnedMeshRenderer skin;
     public int crestBlend;
     public int heightBlend;
+	public int crashBlend;
     public int flatBlend;
     
     public float crestScale = 10;
-    private float currentFlatness = 0;
+    protected float currentFlatness = 0;
+	protected float currentHeight = 0;
+	protected float currentCrash = 0;
 
     [Header("Collectibles")]
 	public Transform collectibleParent;
@@ -71,6 +74,8 @@ public class WaveStatusController : MonoBehaviour
 
             skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
             skin.SetBlendShapeWeight(flatBlend, currentFlatness);
+			skin.SetBlendShapeWeight(heightBlend, currentHeight);
+			skin.SetBlendShapeWeight(crashBlend, currentCrash);
 
             if (transform.localScale.x <= deathThreshold)
             {
@@ -169,7 +174,7 @@ public class WaveStatusController : MonoBehaviour
 		//If Shoreline
 		if (collider.tag == "Shoreline")
 		{
-			WaveCrash();
+			StartCoroutine(WaveCrash());
 		}
 	}
 
@@ -189,7 +194,7 @@ public class WaveStatusController : MonoBehaviour
 		return hit;
 	}
 
-	protected void WaveCrash()
+	protected IEnumerator WaveCrash()
 	{
 		if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
@@ -205,8 +210,38 @@ public class WaveStatusController : MonoBehaviour
 		controller.StartInflation(scale * 10, Mathf.Max(scale * 0.025f));
 
 		//Play Death Anim
-		Destroy(collectibleParent.gameObject);
-		OnDeath();
+
+		//Raise wave up
+		float time = 0;
+		float raiseUpTime = 1;	
+		while (time < raiseUpTime)
+		{
+			//Scale Up
+			scale += Time.deltaTime * scale;
+
+			//Raise Up
+			currentHeight = Mathf.Lerp(0, 100, time);
+
+			time += Time.deltaTime;
+			yield return null;
+		}
+
+		time = 0;
+		float crashTime = scale / 5;
+		while (time < crashTime)
+		{
+			//Still Scale Up
+			scale += Time.deltaTime * 10;
+
+			currentCrash = Mathf.Lerp(0, 100, time / crashTime);
+			currentHeight = Mathf.Lerp(100, 0, time / crashTime);
+
+			time += Time.deltaTime;
+			yield return null;
+		}
+
+		//Destroy(collectibleParent.gameObject);
+		//OnDeath();
 
 		
 	}
