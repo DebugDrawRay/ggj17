@@ -11,6 +11,14 @@ public class SteeringMovement : MonoBehaviour
     private Rigidbody rigid;
     public WaveStatusController status;
 
+	public float currentSpeed
+	{
+		get
+		{
+			return moveSpeed * transform.localScale.x;
+		}
+	}
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();

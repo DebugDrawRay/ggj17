@@ -6,16 +6,40 @@ public class GameController : MonoBehaviour
 {
 	public static GameController instance;
 
-	protected int score;
+	public enum State
+	{
+		Start,
+		Pause,
+		InGame,
+		End
+	}
+	public State currentState;
+
+	void RunStates()
+	{
+		switch (currentState)
+		{
+			case State.Start:
+				break;
+			case State.Pause:
+				break;
+			case State.InGame:
+				break;
+			case State.End:
+				break;
+		}
+	}
+
+	protected int score = 0;
 	public int Score { get { return score; } }
 
-	protected int numberOfFloatsam;
+	protected int numberOfFloatsam = 0;
 	public int NumberOfFloatsam { get { return numberOfFloatsam; } }
 
-	protected int numberOfDestroyedObjects;
+	protected int numberOfDestroyedObjects = 0;
 	public int NumberOfDestroyedObjects { get { return numberOfDestroyedObjects; } }
 
-	protected float finalWaveHeight;
+	protected float finalWaveHeight = 0;
 	public float FinalWaveHeight { get { return finalWaveHeight; } }
 
 	void Awake()
@@ -23,9 +47,16 @@ public class GameController : MonoBehaviour
 		instance = this;
 	}
 
+	void Update()
+	{
+		RunStates();
+	}
+
 	public void AddToScore(int scoreToAdd)
 	{
 		score += scoreToAdd;
+
+		Debug.Log("Added " + scoreToAdd + " to Score:" + score);
 	}
 
 	public void RemoveFromScore(int scoreToRemove)

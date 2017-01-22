@@ -46,7 +46,6 @@ public class EnemyWaveController : MonoBehaviour
 
 	public void OnDeath()
 	{
-		Debug.Log("On death");
 		Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, timeToDeath);
 		death.SetEase(Ease.InOutBack);
 		death.OnComplete(() => Destroy(gameObject));

@@ -27,9 +27,7 @@ public class WaveStatusController : MonoBehaviour
 	public Transform collectibleParent;
 	public Transform randomizer;
 	protected float randomizerThreshold = 12;
-
-	//Controllers
-	protected SteeringMovement steeringMovement;
+	
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -39,7 +37,6 @@ public class WaveStatusController : MonoBehaviour
 	void Awake()
 	{
         instance = this;
-		steeringMovement = GetComponent<SteeringMovement>();
 	}
 
 	void Update()
@@ -121,7 +118,7 @@ public class WaveStatusController : MonoBehaviour
 		//If Shoreline
 		if (collider.tag == "Shoreline")
 		{
-			StartCoroutine(WaveCrash());
+			WaveCrash();
 		}
 	}
 
@@ -141,7 +138,7 @@ public class WaveStatusController : MonoBehaviour
 		return hit;
 	}
 
-	protected IEnumerator WaveCrash()
+	protected void WaveCrash()
 	{
 		if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
@@ -149,24 +146,17 @@ public class WaveStatusController : MonoBehaviour
 		GameObject destructor = new GameObject("DestructionSpehere");
 		destructor.transform.position = transform.position;
 		SphereCollider destructorCollider = destructor.AddComponent<SphereCollider>();
+		destructorCollider.isTrigger = true;
 		Rigidbody destructorRigidbody = destructor.AddComponent<Rigidbody>();
 		destructorRigidbody.useGravity = false;
 		destructorRigidbody.isKinematic = true;
+		DestructionController controller = destructor.AddComponent<DestructionController>();
+		controller.StartInflation(scale / 2);
 
 		//Play Death Anim
-		OnDeath();
 		Destroy(collectibleParent.gameObject);
+		OnDeath();
 
-		float time = 0;
-		float crashTime = 3;
-		float s = 0;
-		float speed = steeringMovement.moveSpeed;
-		while (time < crashTime)
-		{
-			destructor.transform.localScale = new Vector3(s, s, s);
-			s += Time.deltaTime * speed * 2;
-			time += Time.deltaTime;
-			yield return null;
-		}
+		
 	}
 }

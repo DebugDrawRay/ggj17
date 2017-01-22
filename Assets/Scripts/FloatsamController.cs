@@ -15,6 +15,7 @@ public class FloatsamController : MonoBehaviour
 	protected float speed = 10;
 	protected float speedIncrament = 50;
 	protected bool attached = false;
+	protected bool pickupable = true;
 
     public SteeringMovement move;
 
@@ -62,7 +63,9 @@ public class FloatsamController : MonoBehaviour
 
 		if (attached && attachPoint == null)
 		{
+			attached = false;
 			theCollider.enabled = true;
+			theCollider.isTrigger = false;
 			Detach();
 		}
 
@@ -82,15 +85,19 @@ public class FloatsamController : MonoBehaviour
 
 	public void AttachToWave(WaveStatusController waveController, GameObject waveAttachPoint)
 	{
-		Debug.Log("Attach to wave: " + gameObject.name);
-		attachedWave = waveController;
-		attachPoint = waveAttachPoint;
-		theCollider.enabled = false;
-
-		if (GameController.instance != null)
+		if (pickupable)
 		{
-			GameController.instance.AddToScore(pickupScore);
-			GameController.instance.IncramentFloatsam();
+			pickupable = false;
+			
+			attachedWave = waveController;
+			attachPoint = waveAttachPoint;
+			theCollider.enabled = false;
+
+			if (GameController.instance != null)
+			{
+				GameController.instance.AddToScore(pickupScore);
+				GameController.instance.IncramentFloatsam();
+			}
 		}
 	}
 }
