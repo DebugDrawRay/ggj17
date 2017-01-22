@@ -46,7 +46,8 @@ public class WaveStatusController : MonoBehaviour
 		transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
 
         skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
-		/*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
+
+        /*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
 		{
 			waveDisplays[currentWaveThreshold + 1].SetActive(true);
 			waveDisplays[currentWaveThreshold].SetActive(false);
@@ -59,7 +60,7 @@ public class WaveStatusController : MonoBehaviour
 			currentWaveThreshold--;
 		}*/
 
-		if (transform.localScale.x <= deathThreshold)
+        if (transform.localScale.x <= deathThreshold)
 		{
             //Death thing also here
             Debug.Log("You died, loser :c");
