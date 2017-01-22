@@ -17,6 +17,12 @@ public class FloatsamController : MonoBehaviour
 	protected bool attached = false;
 	protected bool pickupable = true;
 
+    public SteeringMovement move;
+    public Vector2 timeToRotateRange;
+    public Vector2 pauseRotateRange;
+    private float currentPauseRotate;
+    private float currentTimeToRotate;
+
 	void Awake()
 	{
 		theCollider = gameObject.GetComponent<Collider>();
@@ -71,8 +77,45 @@ public class FloatsamController : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+        UpdateMovement();
 	}
 
+    int currentDirection;
+    void UpdateMovement()
+    {
+        if (move)
+        {
+            int direction = 0;
+
+            if (currentPauseRotate < 0)
+            {
+                if (currentTimeToRotate > 0)
+                {
+                    direction = currentDirection;
+                    currentTimeToRotate -= Time.deltaTime;
+                }
+                else
+                {
+                    if(Random.value >= .5f)
+                    {
+                        currentDirection = 1;
+                    }
+                    else
+                    {
+                        currentDirection = -1;
+                    }
+                    currentTimeToRotate = Random.Range(timeToRotateRange.x, timeToRotateRange.y);
+                    currentPauseRotate = Random.Range(pauseRotateRange.x, pauseRotateRange.y);
+                }
+            }
+            else
+            {
+                currentPauseRotate -= Time.deltaTime;
+            }
+
+            move.MoveDirection(direction);
+        }
+    }
 	protected void Detach()
 	{
 		Destroy(attachPoint);

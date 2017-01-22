@@ -16,6 +16,10 @@ public class EnemyWaveController : MonoBehaviour
     public float timeToDeath = .5f;
 	protected int currentFlatness = 100;
 
+    private Color originalColor;
+    private Color currentColor;
+    public Color toColor;
+
 	protected float lifetime = 0;
 	protected float maxLifetime = 15f;
 	protected bool alive = true;
@@ -29,6 +33,8 @@ public class EnemyWaveController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, startRot, 0);
 		currentFlatness = 100;
 		OnBirth();
+        originalColor = skin.material.GetColor("_Emission");
+        currentColor = originalColor;
     }
 
     void Update()
@@ -64,8 +70,28 @@ public class EnemyWaveController : MonoBehaviour
 				}
 			}
         }
+        skin.material.SetColor("_Emission", currentColor);
+        UpdateSmoothness();
     }
-
+    bool tweening = false;
+    Tween current;
+    void UpdateSmoothness()
+    {
+        if(transform.localScale.x <= WaveStatusController.instance.transform.localScale.x)
+        {
+            if(!tweening)
+            {
+                current = DOTween.To(() => currentColor, x => currentColor = x, toColor, .5f).SetLoops(-1, LoopType.Yoyo);
+                tweening = true;
+            }
+        }
+        else
+        {
+            current.Kill(true);
+            currentColor = originalColor;
+            tweening = false;
+        }
+    }
 	public void OnBirth()
 	{
 		birth = DOTween.To(() => currentFlatness, x => currentFlatness = x, 0, timeToBirth);

@@ -44,17 +44,20 @@ public class OceanBodySpawner : MonoBehaviour
 
     void SpawnObjects(GameObject spawn, int amount)
     {
+        GameObject enemies = new GameObject("Enemies");
         for (int i = 0; i < amount; i++)
         {
             Vector3 pos = GetRandomPosition(spawnOrigin.position);
             GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
             Vector3 scale = AddRandomScale(spawnOrigin.localScale);
             newEnemy.transform.localScale = scale;
+            newEnemy.transform.SetParent(enemies.transform);
         }
     }
 
     void SpawnObjects(FlotsamSpawn[] spawns)
     {
+        GameObject flotsam = new GameObject("Flotsam");
         for (int i = 0; i < spawns.Length; i++)
         {
             int count = Random.Range(spawns[i].range.min, spawns[i].range.max);
@@ -62,7 +65,7 @@ public class OceanBodySpawner : MonoBehaviour
             {
                 GameObject selected = spawns[i].flotsam;
                 Vector3 pos = GetRandomPosition(spawnOrigin.position);
-                Instantiate(selected, pos, Quaternion.identity);
+                Instantiate(selected, pos, Quaternion.identity).transform.SetParent(flotsam.transform);
             }
         }
     }
@@ -80,10 +83,13 @@ public class OceanBodySpawner : MonoBehaviour
 
     public void RefillEnemies()
     {
-        Vector3 pos = GetRandomPosition(spawnOrigin.position);
-        GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
-        Vector3 scale = AddRandomScale(spawnOrigin.localScale);
-        newEnemy.transform.localScale = scale;
+		if (Random.Range(0f, 1f) < 0.2f)
+		{
+			Vector3 pos = GetRandomPosition(spawnOrigin.position);
+			GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
+			Vector3 scale = AddRandomScale(spawnOrigin.localScale);
+			newEnemy.transform.localScale = scale;
+		}
     }
 
     Vector3 GetRandomPosition(Vector3 center)
