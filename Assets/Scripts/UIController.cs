@@ -47,13 +47,14 @@ public class UIController : MonoBehaviour
 		if (WaveStatusController.instance != null)
 		{
 			curentHeight.text = "HEIGHT: " + Mathf.CeilToInt(WaveStatusController.instance.scale) + "m";
-			if (GameController.instance != null)
-				currentCollected.text = GameController.instance.Score.ToString();
+			//if (GameController.instance != null)
+			//	currentCollected.text = GameController.instance.Score.ToString();
 		}
 	}
 
     public void StartGame()
     {
+        title.DOKill(true);
         CameraController.instance.MoveToPlayer(() => GameController.instance.currentState = GameController.State.InGame);
         curentHeight.DOColor(Color.white, 1f);
         score.DOColor(Color.white, 1f);

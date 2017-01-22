@@ -76,14 +76,22 @@ public class WaveStatusController : MonoBehaviour
             {
                 OnDeath();
             }
+            if (!movementSource.isPlaying)
+            {
+                movementSource.clip = movementClips[0];
+                movementSource.Play();
+            }
+            CheckScale();
         }
-        CheckScale();
 	}
 
     void CheckScale()
     {
         if(nextScale < scaleThresholds.Length && transform.localScale.x > scaleThresholds[nextScale] && nextScale < scaleThresholds.Length)
         {
+            AudioObserver.instance.ChangeTrack(nextScale+1);
+            movementSource.clip = movementClips[nextScale+1];
+            movementSource.Play();
             scaleSource.clip = scaleUpClips[nextScale];
             scaleSource.Play();
             previousScale = nextScale;
@@ -91,6 +99,9 @@ public class WaveStatusController : MonoBehaviour
         }
         if(previousScale < 0 && previousScale >= 0 && transform.localScale.x < scaleThresholds[previousScale])
         {
+            AudioObserver.instance.ChangeTrack(previousScale+1);
+            movementSource.clip = movementClips[previousScale+1];
+            movementSource.Play();
             scaleSource.clip = scaleDownClips[previousScale];
             scaleSource.Play();
             nextScale = previousScale;
