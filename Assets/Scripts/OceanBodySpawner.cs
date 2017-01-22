@@ -103,9 +103,9 @@ public class OceanBodySpawner : MonoBehaviour
     Vector3 AddRandomScale(Vector3 current)
     {
         float scaleMod = Random.Range(scaleMatchRange.x, scaleMatchRange.y);
-        current.x += scaleMod;
-        current.y += scaleMod;
-        current.z += scaleMod;
+        current.x *= scaleMod;
+        current.y *= scaleMod;
+        current.z *= scaleMod;
         return current;
     }
 }
