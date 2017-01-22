@@ -12,6 +12,8 @@ public class EnemyWaveController : MonoBehaviour
 	[Header("Wave Visuals")]
 	public SkinnedMeshRenderer skin;
 	public int flatBlend;
+    public float timeToBirth = 2f;
+    public float timeToDeath = .5f;
 	protected int currentFlatness = 100;
 
 	void Start()
@@ -24,24 +26,28 @@ public class EnemyWaveController : MonoBehaviour
 
     void Update()
     {
-        scale = transform.localScale.x;
-		skin.SetBlendShapeWeight(flatBlend, currentFlatness);
+        if (GameController.instance.currentState == GameController.State.InGame)
+        {
+            scale = transform.localScale.x;
+            skin.SetBlendShapeWeight(flatBlend, currentFlatness);
 
-		if (move != null)
-		{
-			move.MoveDirection(0);
-		}
+            if (move != null)
+            {
+                move.MoveDirection(0);
+            }
+        }
     }
 
 	public void OnBirth()
 	{
-		Tween birth = DOTween.To(() => currentFlatness, x => currentFlatness = x, 0, 2);
+		Tween birth = DOTween.To(() => currentFlatness, x => currentFlatness = x, 0, timeToBirth);
 		birth.SetEase(Ease.InOutBack);
 	}
 
 	public void OnDeath()
 	{
-		Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 2);
+		Debug.Log("On death");
+		Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, timeToDeath);
 		death.SetEase(Ease.InOutBack);
 		death.OnComplete(() => Destroy(gameObject));
 	}
