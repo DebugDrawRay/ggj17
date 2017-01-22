@@ -680,7 +680,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: {fileID: 114725768308695248}
-  subtitle: {fileID: 0}
   startButton: {fileID: 114981743944808188}
   curentHeight: {fileID: 114761606786181574}
   currentCollected: {fileID: 114665001255447412}
@@ -1014,7 +1013,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'TITAL
+  m_Text: 'TIDAL
 
     TAKEDOWN'
 --- !u!114 &114739120586573314
