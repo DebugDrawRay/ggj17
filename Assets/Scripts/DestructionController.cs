@@ -34,7 +34,10 @@ public class DestructionController : MonoBehaviour
 		Rigidbody rigidBody = collider.gameObject.GetComponent<Rigidbody>();
 
 		if (rigidBody != null)
+		{
 			rigidBody.AddForce((collider.gameObject.transform.position - forceOrigin) * 200f);
+			collider.enabled = false;
+		}
 		else
 			Debug.Log("Attached Rigid Body is Null");
 	}

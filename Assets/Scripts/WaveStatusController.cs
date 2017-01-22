@@ -31,6 +31,7 @@ public class WaveStatusController : MonoBehaviour
 
 	[HideInInspector]
 	public float scale = 1f;
+	public float maxScale = 300;
 
     public static WaveStatusController instance;
 
@@ -41,13 +42,15 @@ public class WaveStatusController : MonoBehaviour
 
 	void Update()
 	{
+		scale = Mathf.Min(maxScale, scale);
         if (GameController.instance.currentState == GameController.State.InGame)
         {
             //Scale Down over time
             scale -= scaleDecayRate * Time.deltaTime;
 
             //Move scale of wave toward desired scale
-            transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
+			if (scale < maxScale)
+	            transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), Mathf.Max(1, scale * 0.05f) * Time.deltaTime);
 
             skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
             skin.SetBlendShapeWeight(flatBlend, currentFlatness);
@@ -81,6 +84,7 @@ public class WaveStatusController : MonoBehaviour
 			else
 			{
 				//take damage based on wave scale
+				scale = transform.localScale.x;
 				scale -= waveController.scale * negateAmount;
 			}
 
