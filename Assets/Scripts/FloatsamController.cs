@@ -5,15 +5,14 @@ using UnityEngine;
 public class FloatsamController : MonoBehaviour
 {
 	public float collectThreshold;
-	public int pickupScore;
 
 	protected Collider theCollider;
 	protected Rigidbody theRigidBody;
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
-	protected float speed = 10;
-	protected float speedIncrament = 50;
+	protected float speed = 5;
+	protected float speedIncrament = 25;
 	protected bool attached = false;
 
     public SteeringMovement move;
@@ -32,65 +31,46 @@ public class FloatsamController : MonoBehaviour
 
     void Update()
 	{
-		if (attachPoint != null)
-		{
-			if (!attached)
-			{
-				transform.position = Vector3.MoveTowards(transform.position, attachPoint.transform.position, speed * Time.deltaTime);
-				transform.rotation = attachPoint.transform.rotation;
-				speed += Time.deltaTime * speedIncrament;
+        if (GameController.instance.currentState == GameController.State.InGame)
+        {
+            if (attachPoint != null)
+            {
+                if (!attached)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, attachPoint.transform.position, speed * Time.deltaTime);
+                    transform.rotation = attachPoint.transform.rotation;
+                    speed += Time.deltaTime * speedIncrament;
 
-				if (transform.position == attachPoint.transform.position)
-					attached = true;
-			}
-			else
-			{
-				transform.position = attachPoint.transform.position;
-				transform.rotation = attachPoint.transform.rotation;
-			}
-			
-			if (attachedWave.scale < collectThreshold)
-			{
-				if (GameController.instance != null)
-				{
-					GameController.instance.RemoveFromScore(pickupScore);
-					GameController.instance.DecramentFloatsam();
-				}
-				Detach();
-			}
-		}
+                    if (transform.position == attachPoint.transform.position)
+                        attached = true;
+                }
+                else
+                {
+                    transform.position = attachPoint.transform.position;
+                }
 
-		if (attached && attachPoint == null)
-		{
-			theCollider.enabled = true;
-			Detach();
-		}
+                if (attachedWave.scale < collectThreshold)
+                {
+                    Debug.Log("DETATCH!");
+                    Destroy(attachPoint);
+                    attachPoint = null;
+                    theRigidBody.isKinematic = false;
+                    theRigidBody.useGravity = true;
+                }
+            }
 
-		if (transform.position.y < -10)
-		{
-			Destroy(gameObject);
-		}
-	}
-
-	protected void Detach()
-	{
-		Destroy(attachPoint);
-		attachPoint = null;
-		theRigidBody.isKinematic = false;
-		theRigidBody.useGravity = true;
+            if (transform.position.y < -10)
+            {
+                Destroy(gameObject);
+            }
+        }
 	}
 
 	public void AttachToWave(WaveStatusController waveController, GameObject waveAttachPoint)
 	{
-		Debug.Log("Attach to wave: " + gameObject.name);
 		attachedWave = waveController;
 		attachPoint = waveAttachPoint;
+		Debug.Log("Wave Attach:" + waveAttachPoint.name);
 		theCollider.enabled = false;
-
-		if (GameController.instance != null)
-		{
-			GameController.instance.AddToScore(pickupScore);
-			GameController.instance.IncramentFloatsam();
-		}
 	}
 }
