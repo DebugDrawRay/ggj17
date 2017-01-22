@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0e31429b159a5aa4f9dc97858b3a472c
-timeCreated: 1485044362
+guid: bf64bf8496d198e4e97d81f99ec5fdf3
+timeCreated: 1485084033
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,9 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Box001
-    4300002: Box002
-    4300004: Skyscraper1
+    4300000: Box004
     9500000: //RootNode
   materials:
     importMaterials: 1
