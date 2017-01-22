@@ -202,7 +202,7 @@ public class WaveStatusController : MonoBehaviour
 		destructorRigidbody.useGravity = false;
 		destructorRigidbody.isKinematic = true;
 		DestructionController controller = destructor.AddComponent<DestructionController>();
-		controller.StartInflation(scale / 2);
+		controller.StartInflation(scale / 2, scale);
 
 		//Play Death Anim
 		Destroy(collectibleParent.gameObject);
