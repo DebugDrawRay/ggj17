@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class WaveStatusController : MonoBehaviour
 {
@@ -21,9 +22,9 @@ public class WaveStatusController : MonoBehaviour
     public int crestBlend;
     public int heightBlend;
     public int flatBlend;
-
+    
     public float crestScale = 10;
-
+    private float currentFlatness = 0;
     [Header("Collectibles")]
 	public Transform CollectibleParent;
 
@@ -46,6 +47,7 @@ public class WaveStatusController : MonoBehaviour
 		transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(scale, scale, scale), scaleSpeed * Time.deltaTime);
 
         skin.SetBlendShapeWeight(crestBlend, transform.localScale.x * crestScale);
+        skin.SetBlendShapeWeight(flatBlend, currentFlatness);
 
         /*if (currentWaveThreshold < waveChangeThresholds.Length - 1 && scale > waveChangeThresholds[currentWaveThreshold + 1])
 		{
@@ -62,11 +64,16 @@ public class WaveStatusController : MonoBehaviour
 
         if (transform.localScale.x <= deathThreshold)
 		{
-            //Death thing also here
-            Debug.Log("You died, loser :c");
-            Destroy(gameObject);
+            OnDeath();
 		}
 	}
+
+    void OnDeath()
+    {
+        Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 1);
+        death.SetEase(Ease.Linear);
+        death.OnComplete(() => Destroy(gameObject));
+    }
 
 	void OnTriggerEnter(Collider collider)
 	{
@@ -113,7 +120,7 @@ public class WaveStatusController : MonoBehaviour
         ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
         if(obstacle)
         {
-            scale = deathThreshold;
+            OnDeath();
             //Death thing here
         }
 	}
