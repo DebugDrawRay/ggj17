@@ -13,13 +13,21 @@ public class FloatsamController : MonoBehaviour
 	protected GameObject attachPoint;
 	protected float speed = 50;
 
+    public SteeringMovement move;
+
 	void Awake()
 	{
 		theCollider = gameObject.GetComponent<Collider>();
 		theRigidBody = gameObject.GetComponent<Rigidbody>();
 	}
 
-	void Update()
+    void Start()
+    {
+        float startRot = Random.Range(0, 360);
+        transform.rotation = Quaternion.Euler(0, startRot, 0);
+    }
+
+    void Update()
 	{
 		if (attachPoint != null)
 		{

@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class EnemyWaveController : MonoBehaviour
 {
-	public float scale;
+	public float scale
+    {
+        get
+        {
+            return transform.localScale.x;
+        }
+        private set
+        {
+
+        }
+    }
     public SteeringMovement move;
     void Start()
     {
@@ -14,7 +24,6 @@ public class EnemyWaveController : MonoBehaviour
 
     void Update()
     {
-        scale = transform.localScale.x;
         move.MoveDirection(0);
     }
 }

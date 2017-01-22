@@ -6,7 +6,8 @@ public class OceanBodySpawner : MonoBehaviour
 {
     [Header("Bodies")]
     public GameObject enemyWave;
-    public GameObject[] flotsam;
+    [SerializeField]
+    public FlotsamSpawn[] flotsamSpawnGroups;
     public GameObject[] obstacles;
 
     [Header("Ocean")]
@@ -17,8 +18,6 @@ public class OceanBodySpawner : MonoBehaviour
     [SerializeField]
     public IntRange enemySpawnRange;
     [SerializeField]
-    public IntRange floatsamSpawnRange;
-    [SerializeField]
     public IntRange obstacleSpawnRange;
     public Vector2 spawnRange;
     public float refillRadius;
@@ -27,6 +26,13 @@ public class OceanBodySpawner : MonoBehaviour
     public Transform spawnOrigin;
     public static OceanBodySpawner instance;
 
+    [System.Serializable]
+    public class FlotsamSpawn
+    {
+        public GameObject flotsam;
+        [SerializeField]
+        public IntRange range;
+    }
     void Awake()
     {
         instance = this;
@@ -36,7 +42,7 @@ public class OceanBodySpawner : MonoBehaviour
         spawnOrigin = WaveStatusController.instance.transform;
 
         SpawnObjects(enemyWave, Random.Range(enemySpawnRange.min, enemySpawnRange.max));
-        SpawnObjects(flotsam, Random.Range(floatsamSpawnRange.min, floatsamSpawnRange.max));
+        SpawnObjects(flotsamSpawnGroups);
         SpawnObjects(obstacles, Random.Range(obstacleSpawnRange.min, obstacleSpawnRange.max));
     }
 
@@ -48,6 +54,20 @@ public class OceanBodySpawner : MonoBehaviour
             GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
             Vector3 scale = AddRandomScale(spawnOrigin.localScale);
             newEnemy.transform.localScale = scale;
+        }
+    }
+
+    void SpawnObjects(FlotsamSpawn[] spawns)
+    {
+        for (int i = 0; i < spawns.Length; i++)
+        {
+            int count = Random.Range(spawns[i].range.min, spawns[i].range.max);
+            for(int j = 0; j < count; j++)
+            {
+                GameObject selected = spawns[i].flotsam;
+                Vector3 pos = GetRandomPosition(spawnOrigin.position);
+                Instantiate(selected, pos, Quaternion.identity);
+            }
         }
     }
 
