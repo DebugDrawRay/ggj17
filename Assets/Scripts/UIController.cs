@@ -9,11 +9,18 @@ public class UIController : MonoBehaviour
     [Header("Title Screen")]
     public Text title;
     public Button startButton;
+
     [Header("In Game")]
     public Text curentHeight;
+	public Text currentCollected;
     public Text score;
+
     [Header("Results")]
     public Text[] results;
+	public Text sizeResult;
+	public Text gatheredResult;
+	public Text destroyedResult;
+	public Text totalPointsResult;
     public Button continueButton;
 
     public static UIController instance;
@@ -40,6 +47,8 @@ public class UIController : MonoBehaviour
 		if (WaveStatusController.instance != null)
 		{
 			curentHeight.text = "HEIGHT: " + Mathf.CeilToInt(WaveStatusController.instance.scale) + "m";
+			if (GameController.instance != null)
+				currentCollected.text = GameController.instance.Score.ToString();
 		}
 	}
 
@@ -57,6 +66,16 @@ public class UIController : MonoBehaviour
     public void DisplayResults()
     {
         GameController.instance.currentState = GameController.State.End;
+
+		//Fill in information
+		if (GameController.instance != null)
+		{
+			sizeResult.text = GameController.instance.FinalWaveHeight.ToString();
+			gatheredResult.text = GameController.instance.NumberOfFloatsam.ToString();
+			destroyedResult.text = GameController.instance.NumberOfDestroyedObjects.ToString();
+			totalPointsResult.text = GameController.instance.Score.ToString();
+		}
+
         foreach(Text text in results)
         {
             Color full = text.color;

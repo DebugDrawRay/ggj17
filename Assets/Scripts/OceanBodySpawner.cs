@@ -10,10 +10,6 @@ public class OceanBodySpawner : MonoBehaviour
     public FlotsamSpawn[] flotsamSpawnGroups;
     public GameObject[] obstacles;
 
-    [Header("Ocean")]
-    public MeshRenderer ocean;
-    public float boundsReduction;
-
     [Header("Params")]
     [SerializeField]
     public IntRange enemySpawnRange;
@@ -93,9 +89,7 @@ public class OceanBodySpawner : MonoBehaviour
     Vector3 GetRandomPosition(Vector3 center)
     {
         float dist = Random.Range(spawnRange.x, spawnRange.y);
-        Vector3 point = new Vector3(dist, 0, 0);
-
-        Vector3 dir = point - center;
+        Vector3 point = new Vector3(dist, 0, 0) + center;
         point = Quaternion.Euler(0, Random.Range(0, 360f), 0) * (point - center) + center;
         return point;
     }
