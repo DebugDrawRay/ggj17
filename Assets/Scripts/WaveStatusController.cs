@@ -83,10 +83,16 @@ public class WaveStatusController : MonoBehaviour
             }
             CheckScale();
         }
+<<<<<<< HEAD
     }
+=======
+        CheckScale();
+	}
+
+>>>>>>> origin/Amanda
     void CheckScale()
     {
-        if(transform.localScale.x > scaleThresholds[nextScale] && nextScale < scaleThresholds.Length)
+        if(nextScale < scaleThresholds.Length && transform.localScale.x > scaleThresholds[nextScale] && nextScale < scaleThresholds.Length)
         {
             AudioObserver.instance.ChangeTrack(nextScale+1);
             movementSource.clip = movementClips[nextScale+1];
@@ -96,7 +102,7 @@ public class WaveStatusController : MonoBehaviour
             previousScale = nextScale;
             nextScale++;
         }
-        if(previousScale >= 0 && transform.localScale.x < scaleThresholds[previousScale])
+        if(previousScale < 0 && previousScale >= 0 && transform.localScale.x < scaleThresholds[previousScale])
         {
             AudioObserver.instance.ChangeTrack(previousScale+1);
             movementSource.clip = movementClips[previousScale+1];
@@ -107,6 +113,7 @@ public class WaveStatusController : MonoBehaviour
             previousScale--;
         }
     }
+
     void OnDeath()
     {
         Tween death = DOTween.To(() => currentFlatness, x => currentFlatness = x, 100, 1);
@@ -121,7 +128,7 @@ public class WaveStatusController : MonoBehaviour
 		if (waveController != null)
 		{
 			//If you're bigger than the enemy wave
-			if (scale > waveController.scale)
+			if (scale > waveController.scale  && scale < maxScale)
 			{
 				//Eat enemy wave
 				scale += waveController.scale;
