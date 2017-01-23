@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     [Header("Title Screen")]
     public Text title;
+    public Text subtitle;
     public Button startButton;
 
     [Header("In Game")]
@@ -40,7 +41,9 @@ public class UIController : MonoBehaviour
         clear.a = 0;
 
         title.color = clear;
+        subtitle.color = clear;
         title.DOColor(Color.white, 2f).SetEase(Ease.Linear);
+        subtitle.DOColor(Color.white, 2f).SetEase(Ease.Linear);
     }
     void Update()
 	{
@@ -55,6 +58,7 @@ public class UIController : MonoBehaviour
     public void StartGame()
     {
         title.DOKill(true);
+        subtitle.DOKill(true);
         CameraController.instance.MoveToPlayer(() => GameController.instance.currentState = GameController.State.InGame);
         curentHeight.DOColor(Color.white, 1f);
         score.DOColor(Color.white, 1f);
@@ -62,6 +66,7 @@ public class UIController : MonoBehaviour
         Color clear = title.color;
         clear.a = 0;
         title.DOColor(clear, 1f);
+        subtitle.DOColor(clear, 1f);
     }
 
     public void DisplayResults()

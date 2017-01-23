@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114012257271643700}
   - component: {fileID: 82986349465104374}
   - component: {fileID: 82012148228161918}
+  - component: {fileID: 82499141512295542}
   m_Layer: 0
   m_Name: PlayerWave
   m_TagString: Untagged
@@ -465,6 +466,87 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82499141512295542
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1099143337595892}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243576218889476192, guid: 52c477765d37f354eabe265e8c31db0c,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &82986349465104374
 AudioSource:
   m_ObjectHideFlags: 1
@@ -555,7 +637,7 @@ Animator:
   m_GameObject: {fileID: 1484174354404876}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dc399d5629463ed46acf860176a9f9be, type: 3}
-  m_Controller: {fileID: 9100000, guid: aacdfdcfec6fa334fa3952554ec5b5e1, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -597,12 +679,12 @@ MonoBehaviour:
   - 3
   - 5
   scaleSpeed: 1
+  scaleUpMod: 0.15
   negateAmount: 0.1
-  scaleDecayRate: 0.01
+  scaleDecayRate: 0.05
   skin: {fileID: 137844213484270962}
   crestBlend: 0
   heightBlend: 1
-  crashBlend: 0
   flatBlend: 2
   crestScale: 10
   onHit: {fileID: 1929543318098900, guid: 0d05846c7d31bd3458059e1c2b96cfe9, type: 2}
@@ -620,9 +702,9 @@ MonoBehaviour:
   scaleDownClips:
   - {fileID: 8300000, guid: b5f7c15bdf7bfc14cb4f61b603af282b, type: 3}
   - {fileID: 8300000, guid: 8111813331572044bbf29f561fb51c3c, type: 3}
-  collisionSource: {fileID: 0}
-  collisionClip: {fileID: 0}
-  collectClip: {fileID: 0}
+  collisionSource: {fileID: 82499141512295542}
+  collisionClip: {fileID: 8300000, guid: 6035115dbab8daf43962d89b2fce19d2, type: 3}
+  collectClip: {fileID: 8300000, guid: b61b893d3debd1c439dd530e92a3e5bf, type: 3}
   scale: 1
   maxScale: 300
 --- !u!114 &114242387561605376

@@ -11,6 +11,7 @@ public class WaveStatusController : MonoBehaviour
     public float deathThreshold;
     public float[] scaleThresholds;
     public float scaleSpeed = 1;
+    public float scaleUpMod = 1;
     public float negateAmount = 0.5f;
     public float scaleDecayRate = 0.05f;
 
@@ -145,7 +146,7 @@ public class WaveStatusController : MonoBehaviour
 			if (scale > waveController.scale  && scale < maxScale)
 			{
 				//Eat enemy wave
-				scale += waveController.scale;
+				scale += waveController.scale * scaleUpMod;
 			}
 			else
 			{
