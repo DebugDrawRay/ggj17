@@ -55,14 +55,17 @@ public class OceanBodySpawner : MonoBehaviour
 
     void SpawnEnemies(GameObject spawn, int amount, Vector2 range, float rangeMod)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            Vector3 pos = GetRandomEnemyPosition(spawnOrigin.position, range);
-            GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
-            Vector3 scale = AddRandomScale(spawnOrigin.localScale);
-            newEnemy.transform.localScale = scale;
-            newEnemy.transform.SetParent(enemyContainer.transform);
-        }
+		if (spawnOrigin != null)
+		{
+			for (int i = 0; i < amount; i++)
+			{
+				Vector3 pos = GetRandomEnemyPosition(spawnOrigin.position, range);
+				GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
+				Vector3 scale = AddRandomScale(spawnOrigin.localScale);
+				newEnemy.transform.localScale = scale;
+				newEnemy.transform.SetParent(enemyContainer.transform);
+			}
+		}
     }
 
     void SpawnObjects(FlotsamSpawn[] spawns)
@@ -82,15 +85,18 @@ public class OceanBodySpawner : MonoBehaviour
 
     public void RefillEnemies()
     {
-        if(currentTimeToRefill > 0)
-        {
-            currentTimeToRefill -= Time.deltaTime;
-        }
-        else
-        {
-            SpawnEnemies(enemyWave, 1, newEnemySpawnRadius, spawnRangeMod);
-            currentTimeToRefill = Random.Range(timeToRefillRange.x, timeToRefillRange.y) * (WaveStatusController.instance.transform.localScale.x * spawnTimeMod);
-        }
+		if (WaveStatusController.instance != null)
+		{
+			if (currentTimeToRefill > 0)
+			{
+				currentTimeToRefill -= Time.deltaTime;
+			}
+			else
+			{
+				SpawnEnemies(enemyWave, 1, newEnemySpawnRadius, spawnRangeMod);
+				currentTimeToRefill = Random.Range(timeToRefillRange.x, timeToRefillRange.y) * (WaveStatusController.instance.transform.localScale.x * spawnTimeMod);
+			}
+		}
     }
 
     Vector3 GetRandomEnemyPosition(Vector3 center, Vector2 range)
