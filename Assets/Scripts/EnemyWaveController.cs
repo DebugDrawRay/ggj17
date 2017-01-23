@@ -21,7 +21,8 @@ public class EnemyWaveController : MonoBehaviour
     public Color toColor;
 
 	protected float lifetime = 0;
-	protected float maxLifetime = 15f;
+	protected Vector2 maxLifetime = new Vector2(15f, 30f);
+    protected float killDistance = 500f;
 	protected bool alive = true;
 
 	protected Tween birth;
@@ -35,6 +36,7 @@ public class EnemyWaveController : MonoBehaviour
 		OnBirth();
         originalColor = skin.material.GetColor("_Emission");
         currentColor = originalColor;
+        lifetime = Random.Range(maxLifetime.x, maxLifetime.y);
     }
 
     void Update()
@@ -56,18 +58,21 @@ public class EnemyWaveController : MonoBehaviour
 				{
 					if (scale < WaveStatusController.instance.scale * 0.1f)
 					{
-						OceanBodySpawner.instance.RefillEnemies();
 						OnDeath();
 					}
 				}
 
 				//Die after certain amount of time
-				lifetime += Time.deltaTime;
-				if (lifetime > maxLifetime)
+				lifetime -= Time.deltaTime;
+				if (lifetime <= 0)
 				{
-					OceanBodySpawner.instance.RefillEnemies();
 					OnDeath();
 				}
+
+                if(Vector3.Distance(transform.position, WaveStatusController.instance.transform.position) > killDistance)
+                {
+                    OnDeath();
+                }
 			}
         }
         skin.material.SetColor("_Emission", currentColor);

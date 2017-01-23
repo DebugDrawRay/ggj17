@@ -204,6 +204,8 @@ MonoBehaviour:
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 198474912605060454}
+  disableAudioOnPickup: {fileID: 0}
 --- !u!198 &198474912605060454
 ParticleSystem:
   m_ObjectHideFlags: 1

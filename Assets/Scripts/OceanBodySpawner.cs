@@ -10,20 +10,25 @@ public class OceanBodySpawner : MonoBehaviour
     public FlotsamSpawn[] flotsamSpawnGroups;
     public GameObject[] obstacles;
 
-    [Header("Params")]
-    [SerializeField]
-    public IntRange enemySpawnRange;
-    [SerializeField]
-    public IntRange obstacleSpawnRange;
-    public Vector2 enemySpawnRadius;
+    [Header("Body Params")]
     public float bodySpawnRadius;
     public Transform bodySpawnCenter;
-    public float refillRadius;
-    public Vector2 scaleMatchRange;
 
     public Transform spawnOrigin;
-    public static OceanBodySpawner instance;
 
+    [Header("Enemy Params")]
+    public IntRange enemySpawnCountRange;
+    public Vector2 initialEnemySpawnRadius;
+    public Vector2 newEnemySpawnRadius;
+    public float spawnRangeMod;
+    public float spawnTimeMod;
+    //x = chance, y = scale;
+    public Vector2[] scaleLevels;
+    public Vector2 timeToRefillRange;
+    private float currentTimeToRefill;
+
+    private GameObject enemyContainer;
+    public static OceanBodySpawner instance;
     [System.Serializable]
     public class FlotsamSpawn
     {
@@ -38,22 +43,25 @@ public class OceanBodySpawner : MonoBehaviour
     void Start()
     {
         spawnOrigin = WaveStatusController.instance.transform;
-
-        SpawnObjects(enemyWave, Random.Range(enemySpawnRange.min, enemySpawnRange.max));
+        enemyContainer = new GameObject("Enemies");
+        SpawnEnemies(enemyWave, Random.Range(enemySpawnCountRange.min, enemySpawnCountRange.max), initialEnemySpawnRadius, 1);
         SpawnObjects(flotsamSpawnGroups);
-        SpawnObjects(obstacles, Random.Range(obstacleSpawnRange.min, obstacleSpawnRange.max));
     }
 
-    void SpawnObjects(GameObject spawn, int amount)
+    void Update()
     {
-        GameObject enemies = new GameObject("Enemies");
+        RefillEnemies();
+    }
+
+    void SpawnEnemies(GameObject spawn, int amount, Vector2 range, float rangeMod)
+    {
         for (int i = 0; i < amount; i++)
         {
-            Vector3 pos = GetRandomPosition(spawnOrigin.position);
+            Vector3 pos = GetRandomEnemyPosition(spawnOrigin.position, range);
             GameObject newEnemy = Instantiate(spawn, pos, Quaternion.identity);
             Vector3 scale = AddRandomScale(spawnOrigin.localScale);
             newEnemy.transform.localScale = scale;
-            newEnemy.transform.SetParent(enemies.transform);
+            newEnemy.transform.SetParent(enemyContainer.transform);
         }
     }
 
@@ -72,31 +80,22 @@ public class OceanBodySpawner : MonoBehaviour
         }
     }
 
-    void SpawnObjects(GameObject[] spawns, int amount)
+    public void RefillEnemies()
     {
-        for(int i = 0; i < amount; i++)
+        if(currentTimeToRefill > 0)
         {
-            int select = Random.Range(0, spawns.Length);
-            GameObject selected = spawns[select];
-            Vector3 pos = GetRandomPosition(spawnOrigin.position);
-            Instantiate(selected, pos, Quaternion.identity);
+            currentTimeToRefill -= Time.deltaTime;
+        }
+        else
+        {
+            SpawnEnemies(enemyWave, 1, newEnemySpawnRadius, spawnRangeMod);
+            currentTimeToRefill = Random.Range(timeToRefillRange.x, timeToRefillRange.y) * (WaveStatusController.instance.transform.localScale.x * spawnTimeMod);
         }
     }
 
-    public void RefillEnemies()
+    Vector3 GetRandomEnemyPosition(Vector3 center, Vector2 range)
     {
-		if (Random.Range(0f, 1f) < 0.2f)
-		{
-			Vector3 pos = GetRandomPosition(spawnOrigin.position);
-			GameObject newEnemy = Instantiate(enemyWave, pos, Quaternion.identity);
-			Vector3 scale = AddRandomScale(spawnOrigin.localScale);
-			newEnemy.transform.localScale = scale;
-		}
-    }
-
-    Vector3 GetRandomPosition(Vector3 center)
-    {
-        float dist = Random.Range(enemySpawnRadius.x, enemySpawnRadius.y);
+        float dist = Random.Range(range.x, range.y);
         Vector3 point = new Vector3(dist, 0, 0) + center;
         point = Quaternion.Euler(0, Random.Range(0, 360f), 0) * (point - center) + center;
         return point;
@@ -111,10 +110,26 @@ public class OceanBodySpawner : MonoBehaviour
 
     Vector3 AddRandomScale(Vector3 current)
     {
-        float scaleMod = Random.Range(scaleMatchRange.x, scaleMatchRange.y);
-        current.x *= scaleMod;
-        current.y *= scaleMod;
-        current.z *= scaleMod;
+        float totalWeights = 0;
+        foreach(Vector2 scale in scaleLevels)
+        {
+            totalWeights += scale.x;
+        }
+        float ran = Random.Range(0, totalWeights);
+        int index = -1;
+        for(int i = 0; i< scaleLevels.Length; i++)
+        {
+            if(ran <= scaleLevels[i].x)
+            {
+                index = i;
+                break;
+            }
+            ran -= scaleLevels[i].x;
+        }
+        Vector2 selected = scaleLevels[index];
+        current.x *= selected.y;
+        current.y *= selected.y;
+        current.z *= selected.y;
         return current;
     }
 }

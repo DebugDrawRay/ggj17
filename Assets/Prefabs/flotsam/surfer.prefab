@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4675004826962308}
   - component: {fileID: 33332945753015334}
   - component: {fileID: 23930498418860374}
-  - component: {fileID: 95950195356380566}
   m_Layer: 0
   m_Name: Surfer
   m_TagString: Untagged
@@ -57,7 +56,6 @@ GameObject:
   - component: {fileID: 65190188770010368}
   - component: {fileID: 54612274333934854}
   - component: {fileID: 114262036585352710}
-  - component: {fileID: 111632083947744436}
   m_Layer: 0
   m_Name: surfer
   m_TagString: Untagged
@@ -174,37 +172,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 2, z: 0.5}
   m_Center: {x: 0, y: 0.9, z: 0.03}
---- !u!95 &95950195356380566
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1216681822697990}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b9b4da15e45514b42b5f61c853382122, type: 3}
-  m_Controller: {fileID: 9100000, guid: 32547154696ce734d9e2a194eb195305, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!111 &111632083947744436
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640697020836000}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114262036585352710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,6 +188,8 @@ MonoBehaviour:
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 198037611835392838}
+  disableAudioOnPickup: {fileID: 0}
 --- !u!198 &198037611835392838
 ParticleSystem:
   m_ObjectHideFlags: 1

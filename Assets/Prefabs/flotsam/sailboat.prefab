@@ -128,8 +128,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229889193612292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -29.3, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4126551260607908}
   - {fileID: 4446274877061690}
@@ -314,11 +314,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3caa273bc0d1010479525000a17e6647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectThreshold: 0
-  pickupScore: 0
+  collectThreshold: 10
+  pickupScore: 10
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 198583469449004076}
+  disableAudioOnPickup: {fileID: 0}
 --- !u!136 &136069268945897840
 CapsuleCollider:
   m_ObjectHideFlags: 1

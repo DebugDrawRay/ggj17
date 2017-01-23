@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4713908514410326}
   - component: {fileID: 33146621714019200}
   - component: {fileID: 23124837626976650}
-  - component: {fileID: 95675863828498262}
-  m_Layer: 0
+  - component: {fileID: 64861253129341944}
+  m_Layer: 4
   m_Name: waterplane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782497467172486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 143}
   m_LocalScale: {x: 1500, y: 1, z: 1500}
   m_Children:
   - {fileID: 4713908514410326}
@@ -470,6 +470,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490223326832926}
   m_Mesh: {fileID: 4300000, guid: a71e2f4697cfd5143a9fd7c8822b0e29, type: 3}
+--- !u!64 &64861253129341944
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056631923478772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: bb04a7f7f9ab5cd49b88eedcda786f26, type: 3}
 --- !u!65 &65937282544978330
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -533,23 +547,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95675863828498262
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1056631923478772}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bb04a7f7f9ab5cd49b88eedcda786f26, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114830905830977480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,18 +585,20 @@ MonoBehaviour:
       min: 75
       max: 150
   obstacles: []
-  enemySpawnRange:
-    min: 250
-    max: 500
-  obstacleSpawnRange:
-    min: 0
-    max: 0
-  enemySpawnRadius: {x: 25, y: 400}
   bodySpawnRadius: 1200
   bodySpawnCenter: {fileID: 4367410860615098}
-  refillRadius: 250
-  scaleMatchRange: {x: 0.75, y: 1}
   spawnOrigin: {fileID: 0}
+  enemySpawnCountRange:
+    min: 100
+    max: 200
+  initialEnemySpawnRadius: {x: 25, y: 200}
+  newEnemySpawnRadius: {x: 25, y: 200}
+  spawnRangeMod: 0.25
+  spawnTimeMod: 1.1
+  scaleLevels:
+  - {x: 0.8, y: 0.75}
+  - {x: 0.2, y: 2}
+  timeToRefillRange: {x: 0.1, y: 0.25}
 --- !u!114 &114938841148501982
 MonoBehaviour:
   m_ObjectHideFlags: 1

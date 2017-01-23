@@ -59,7 +59,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1593753439714364
 GameObject:
   m_ObjectHideFlags: 1
@@ -364,9 +364,9 @@ MonoBehaviour:
   move: {fileID: 114947899666193566}
   skin: {fileID: 137142421347875620}
   flatBlend: 2
-  timeToBirth: 2
+  timeToBirth: 3
   timeToDeath: 0.5
-  toColor: {r: 0.3897059, g: 0.3897059, b: 0.3897059, a: 1}
+  toColor: {r: 0, g: 1, b: 0.54482746, a: 1}
 --- !u!114 &114947899666193566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -448,7 +448,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights:
   - 0
   - 0
-  - 0
+  - 100
   - 0
   - 0
   m_RootBone: {fileID: 0}
