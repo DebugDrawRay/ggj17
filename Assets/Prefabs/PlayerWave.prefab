@@ -681,10 +681,11 @@ MonoBehaviour:
   scaleSpeed: 1
   scaleUpMod: 0.15
   negateAmount: 0.1
-  scaleDecayRate: 0.05
+  scaleDecayRate: 0.0125
   skin: {fileID: 137844213484270962}
   crestBlend: 0
   heightBlend: 1
+  crashBlend: 0
   flatBlend: 2
   crestScale: 10
   onHit: {fileID: 1929543318098900, guid: 0d05846c7d31bd3458059e1c2b96cfe9, type: 2}

@@ -366,7 +366,8 @@ MonoBehaviour:
   flatBlend: 2
   timeToBirth: 3
   timeToDeath: 0.5
-  toColor: {r: 0, g: 1, b: 0.54482746, a: 1}
+  goodColor: {r: 0, g: 1, b: 0.54482746, a: 1}
+  badColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114947899666193566
 MonoBehaviour:
   m_ObjectHideFlags: 1

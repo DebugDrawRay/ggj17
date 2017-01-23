@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114212973552757508}
   - component: {fileID: 136697149649033696}
   - component: {fileID: 82999356515648922}
-  - component: {fileID: 114043684454434990}
+  - component: {fileID: 114007485818965444}
   m_Layer: 0
   m_Name: tugboat
   m_TagString: Untagged
@@ -56,8 +56,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1361661903626346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.9, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -70.4, y: 0, z: 0}
+  m_LocalScale: {x: 2.75, y: 2.75, z: 2.75}
   m_Children:
   - {fileID: 4705061535723600}
   m_Father: {fileID: 0}
@@ -230,7 +230,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114043684454434990
+--- !u!114 &114007485818965444
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -238,11 +238,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361661903626346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68b133753639324438cb289f8f5827b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3caa273bc0d1010479525000a17e6647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  delayAudioTime: 60
+  collectThreshold: 25
+  pickupScore: 25
+  move: {fileID: 0}
+  timeToRotateRange: {x: 0, y: 0}
+  pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 0}
+  disableAudioOnPickup: {fileID: 0}
 --- !u!114 &114212973552757508
 MonoBehaviour:
   m_ObjectHideFlags: 1

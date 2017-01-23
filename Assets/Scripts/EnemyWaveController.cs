@@ -18,7 +18,8 @@ public class EnemyWaveController : MonoBehaviour
 
     private Color originalColor;
     private Color currentColor;
-    public Color toColor;
+    public Color goodColor;
+    public Color badColor;
 
 	protected float lifetime = 0;
 	protected Vector2 maxLifetime = new Vector2(15f, 30f);
@@ -86,7 +87,7 @@ public class EnemyWaveController : MonoBehaviour
         {
             if(!tweening)
             {
-                current = DOTween.To(() => currentColor, x => currentColor = x, toColor, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+                current = DOTween.To(() => currentColor, x => currentColor = x, goodColor, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 tweening = true;
             }
         }
