@@ -27,16 +27,16 @@ public class SteeringMovement : MonoBehaviour
     public void MoveDirection(float direction)
     {
         float totalSpeed = moveSpeed;
-        float totalAccel = turnAccel;
+        float totalTurnSpeed = turnSpeed;
         if (status)
         {
             totalSpeed *= transform.localScale.x;
-            totalAccel /= transform.localScale.x;
+			totalTurnSpeed /= (transform.localScale.x / 15);
         }
         transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, totalSpeed * Time.deltaTime);
         Vector3 euler = transform.rotation.eulerAngles;
-        euler.y = euler.y + (direction * turnSpeed);
+        euler.y = euler.y + (direction * totalTurnSpeed);
         Quaternion rot = Quaternion.Euler(euler);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, turnAccel);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, 0.1f);
     }
 }

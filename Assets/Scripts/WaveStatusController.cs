@@ -19,10 +19,10 @@ public class WaveStatusController : MonoBehaviour
     public SkinnedMeshRenderer skin;
     public int crestBlend;
     public int heightBlend;
-	public int crashBlend;
     public int flatBlend;
-    
-    public float crestScale = 10;
+	public int crashBlend;
+
+	public float crestScale = 10;
     protected float currentFlatness = 0;
 	protected float currentHeight = 0;
 	protected float currentCrash = 0;
@@ -48,6 +48,8 @@ public class WaveStatusController : MonoBehaviour
     private int nextScale;
     //Controllers
     protected SteeringMovement steeringMovement;
+
+	protected bool destroyed = false;
 
 	[HideInInspector]
 	public float scale = 1f;
@@ -155,8 +157,11 @@ public class WaveStatusController : MonoBehaviour
 				scale -= waveController.scale * negateAmount;
 			}
             HitReaction();
-            collisionSource.clip = collisionClip;
-            collisionSource.Play();
+			if (collisionSource != null)
+			{
+				collisionSource.clip = collisionClip;
+				collisionSource.Play();
+			}
             OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
@@ -178,8 +183,12 @@ public class WaveStatusController : MonoBehaviour
                 attachPoint.transform.SetParent(collectibleParent);
 
                 floatsamController.AttachToWave(this, attachPoint);
-                collisionSource.clip = collectClip;
-                collisionSource.Play();
+
+				if (collisionSource != null)
+				{
+					collisionSource.clip = collectClip;
+					collisionSource.Play();
+				}
             }
             HitReaction();
         }
@@ -188,14 +197,17 @@ public class WaveStatusController : MonoBehaviour
         ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
 		if (obstacle)
 		{
-            collisionSource.clip = collisionClip;
-            collisionSource.Play();
+			if (collisionSource != null)
+			{
+				collisionSource.clip = collisionClip;
+				collisionSource.Play();
+			}
             HitReaction();
             OnDeath();
 		}
 
 		//If Shoreline
-		if (collider.tag == "Shoreline")
+		if (collider.tag == "Shoreline" && !destroyed)
 		{
 			StartCoroutine(WaveCrash());
 		}
@@ -219,39 +231,44 @@ public class WaveStatusController : MonoBehaviour
 
 	protected IEnumerator WaveCrash()
 	{
+		destroyed = true;
+
         AudioObserver.instance.TriggerEndGame(true);
         if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
 
 		GameObject destructor = new GameObject("DestructionSpehere");
 		destructor.transform.position = transform.position;
+		destructor.layer = LayerMask.NameToLayer("DestructionSphere");
 		SphereCollider destructorCollider = destructor.AddComponent<SphereCollider>();
 		destructorCollider.isTrigger = true;
 		Rigidbody destructorRigidbody = destructor.AddComponent<Rigidbody>();
 		destructorRigidbody.useGravity = false;
 		destructorRigidbody.isKinematic = true;
 		DestructionController controller = destructor.AddComponent<DestructionController>();
-		controller.StartInflation(scale * 10, Mathf.Max(scale * 0.025f));
+		//controller.StartInflation(scale * 2f, scale * 0.05f);
+		controller.StartInflation(scale * 2.5f, 5f);
 
 		//Play Death Anim
 
 		//Raise wave up
 		float time = 0;
-		float raiseUpTime = 1;	
+		float raiseUpTime = 2;	
 		while (time < raiseUpTime)
 		{
 			//Scale Up
 			scale += Time.deltaTime * scale;
 
 			//Raise Up
-			currentHeight = Mathf.Lerp(0, 100, time);
+			currentHeight = Mathf.Lerp(0, 100, time / raiseUpTime);
 
 			time += Time.deltaTime;
 			yield return null;
 		}
 
 		time = 0;
-		float crashTime = scale / 5;
+		float crashTime = scale / 100;
+		Debug.Log("CRASH TIME: " + crashTime);
 		while (time < crashTime)
 		{
 			//Still Scale Up
@@ -264,8 +281,8 @@ public class WaveStatusController : MonoBehaviour
 			yield return null;
 		}
 
-		//Destroy(collectibleParent.gameObject);
-		//OnDeath();
+		Destroy(collectibleParent.gameObject);
+		OnDeath();
 
 		
 	}

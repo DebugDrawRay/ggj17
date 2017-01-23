@@ -7,6 +7,13 @@ public class DestructionController : MonoBehaviour
 	protected Vector3 forceOrigin;
 	protected float destructionLifespan;
 
+	protected List<Collider> alreadyThrown;
+
+	void Awake()
+	{
+		alreadyThrown = new List<Collider>();
+	}
+
 	public void StartInflation(float speed, float lifespan)
 	{
 		destructionLifespan = lifespan;
@@ -27,20 +34,26 @@ public class DestructionController : MonoBehaviour
 			yield return null;
 		}
 
+		Debug.Log("DESTRUCTION OVER");
 		Destroy(gameObject);
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
+		collider.gameObject.layer = LayerMask.NameToLayer("TossedObjects");
 		Rigidbody rigidBody = collider.gameObject.GetComponent<Rigidbody>();
 
 		if (rigidBody != null)
 		{
 			rigidBody.isKinematic = false;
 			rigidBody.useGravity = true;
-			rigidBody.AddForce((collider.gameObject.transform.position - forceOrigin) * 200f);
-			rigidBody.AddTorque(Vector3.left * 100);
-			collider.enabled = false;
+
+			Vector3 forcePoint = transform.position + ((collider.gameObject.transform.position - transform.position) * 0.5f);
+			forcePoint.y -= 200f;
+
+			rigidBody.AddForce((collider.gameObject.transform.position - forcePoint) * 80f);
+			rigidBody.AddTorque(Vector3.left * 50);
+
 		}
 		else
 			Debug.Log("Attached Rigid Body is Null");

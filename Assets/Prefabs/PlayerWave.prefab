@@ -687,6 +687,7 @@ MonoBehaviour:
   heightBlend: 1
   crashBlend: 0
   flatBlend: 2
+  crashBlend: 5
   crestScale: 10
   onHit: {fileID: 1929543318098900, guid: 0d05846c7d31bd3458059e1c2b96cfe9, type: 2}
   collectibleParent: {fileID: 4176887293423724}
