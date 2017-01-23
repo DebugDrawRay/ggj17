@@ -9,12 +9,15 @@ public class PlayerActions : PlayerActionSet
 
     public PlayerOneAxisAction Steer;
 
+    public PlayerAction Quit;
     public PlayerActions()
     {
         Left = CreatePlayerAction("Steer Left");
         Right = CreatePlayerAction("Steer Right");
 
         Steer = CreateOneAxisPlayerAction(Left, Right);
+
+        Quit = CreatePlayerAction("Quit");
     }
 
     public static PlayerActions BindAll()
@@ -25,6 +28,13 @@ public class PlayerActions : PlayerActionSet
         actions.Right.AddDefaultBinding(Key.D);
         actions.Left.AddDefaultBinding(InputControlType.LeftStickLeft);
         actions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
+
+        actions.Quit.AddDefaultBinding(InputControlType.Menu);
+        actions.Quit.AddDefaultBinding(InputControlType.Options);
+        actions.Quit.AddDefaultBinding(InputControlType.Start);
+        actions.Quit.AddDefaultBinding(InputControlType.View);
+        actions.Quit.AddDefaultBinding(InputControlType.Back);
+        actions.Quit.AddDefaultBinding(InputControlType.Home);
 
         return actions;
     }

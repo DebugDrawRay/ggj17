@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1166199117460696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1115, y: -3.9, z: 896}
+  m_LocalPosition: {x: -39.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4920678035527296}
@@ -418,6 +418,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectThreshold: 10
   pickupScore: 0
+  move: {fileID: 0}
+  timeToRotateRange: {x: 0, y: 0}
+  pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 198923368750104162}
+  disableAudioOnPickup: {fileID: 82576968756038448}
 --- !u!114 &114683062619507592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -514,7 +519,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1972886408
+  randomSeed: 2074960249
   InitialModule:
     serializedVersion: 3
     enabled: 1

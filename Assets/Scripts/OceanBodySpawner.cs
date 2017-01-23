@@ -15,7 +15,9 @@ public class OceanBodySpawner : MonoBehaviour
     public IntRange enemySpawnRange;
     [SerializeField]
     public IntRange obstacleSpawnRange;
-    public Vector2 spawnRange;
+    public Vector2 enemySpawnRadius;
+    public float bodySpawnRadius;
+    public Transform bodySpawnCenter;
     public float refillRadius;
     public Vector2 scaleMatchRange;
 
@@ -64,7 +66,7 @@ public class OceanBodySpawner : MonoBehaviour
             for(int j = 0; j < count; j++)
             {
                 GameObject selected = spawns[i].flotsam;
-                Vector3 pos = GetRandomPosition(spawnOrigin.position);
+                Vector3 pos = GetRandomPosition();
                 Instantiate(selected, pos, Quaternion.identity).transform.SetParent(flotsam.transform);
             }
         }
@@ -94,9 +96,16 @@ public class OceanBodySpawner : MonoBehaviour
 
     Vector3 GetRandomPosition(Vector3 center)
     {
-        float dist = Random.Range(spawnRange.x, spawnRange.y);
+        float dist = Random.Range(enemySpawnRadius.x, enemySpawnRadius.y);
         Vector3 point = new Vector3(dist, 0, 0) + center;
         point = Quaternion.Euler(0, Random.Range(0, 360f), 0) * (point - center) + center;
+        return point;
+    }
+    Vector3 GetRandomPosition()
+    {
+        float dist = Random.Range(0, bodySpawnRadius);
+        Vector3 point = new Vector3(dist, 0, 0) + bodySpawnCenter.position;
+        point = Quaternion.Euler(0, Random.Range(0, 360f), 0) * (point - bodySpawnCenter.position) + bodySpawnCenter.position;
         return point;
     }
 

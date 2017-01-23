@@ -77,11 +77,11 @@ public class EnemyWaveController : MonoBehaviour
     Tween current;
     void UpdateSmoothness()
     {
-        if(WaveStatusController.instance != null && transform.localScale.x <= WaveStatusController.instance.transform.localScale.x)
+        if(WaveStatusController.instance && transform.localScale.x <= WaveStatusController.instance.transform.localScale.x)
         {
             if(!tweening)
             {
-                current = DOTween.To(() => currentColor, x => currentColor = x, toColor, .5f).SetLoops(-1, LoopType.Yoyo);
+                current = DOTween.To(() => currentColor, x => currentColor = x, toColor, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
                 tweening = true;
             }
         }
