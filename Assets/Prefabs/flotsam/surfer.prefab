@@ -619,7 +619,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     randomizeRotationDirection: 1
-    maxNumParticles: 6000
+    maxNumParticles: 100
     size3D: 0
     rotation3D: 0
     gravityModifier:

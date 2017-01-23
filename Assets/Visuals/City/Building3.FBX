@@ -11,10 +11,10 @@ FBXHeaderExtension:  {
 		Year: 2017
 		Month: 1
 		Day: 22
-		Hour: 3
-		Minute: 16
-		Second: 18
-		Millisecond: 656
+		Hour: 14
+		Minute: 53
+		Second: 56
+		Millisecond: 9
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.0"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -36,13 +36,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2014"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "22/01/2017 11:16:18.655"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "22/01/2017 22:53:56.009"
 			P: "Original|FileName", "KString", "", "", "F:\GameDev\GG17\Assets\Visuals\City\Building3.FBX"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2014"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "22/01/2017 11:16:18.655"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "22/01/2017 22:53:56.009"
 		}
 	}
 }
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1815031472, "", "Scene" {
+	Document: 1858207024, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -255,7 +255,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 1864385664, "Geometry::", "Mesh" {
+	Geometry: 2134148480, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.882352941176471,0.341176470588235,0.56078431372549
 		}
@@ -331,7 +331,7 @@ Objects:  {
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			Materials: *196 {
-				a: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+				a: 3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3
 			} 
 		}
 		Layer: 0 {
@@ -358,7 +358,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 1861428208, "Model::Box002", "Mesh" {
+	Model: 1861463280, "Model::Box002", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "PreRotation", "Vector3D", "Vector", "",-90,-0,0
@@ -380,51 +380,95 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 1054619280, "Material::Skyscraper base", "" {
+	Material: 2205549936, "Material::ConcreteBrown", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "ShadingModel", "KString", "", "", "phong"
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "AmbientColor", "Color", "", "A",0.725490212440491,0.713725507259369,0.705882370471954
-			P: "DiffuseColor", "Color", "", "A",0.725490212440491,0.713725507259369,0.705882370471954
+			P: "AmbientColor", "Color", "", "A",0.478431403636932,0.427451014518738,0.403921604156494
+			P: "DiffuseColor", "Color", "", "A",0.478431403636932,0.427451014518738,0.403921604156494
 			P: "TransparentColor", "Color", "", "A",1,1,1
 			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
 			P: "SpecularFactor", "Number", "", "A",0
-			P: "ShininessExponent", "Number", "", "A",1.99999988079071
+			P: "ShininessExponent", "Number", "", "A",2
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.725490212440491,0.713725507259369,0.705882370471954
-			P: "Diffuse", "Vector3D", "Vector", "",0.725490212440491,0.713725507259369,0.705882370471954
+			P: "Ambient", "Vector3D", "Vector", "",0.478431403636932,0.427451014518738,0.403921604156494
+			P: "Diffuse", "Vector3D", "Vector", "",0.478431403636932,0.427451014518738,0.403921604156494
 			P: "Specular", "Vector3D", "Vector", "",0,0,0
-			P: "Shininess", "double", "Number", "",1.99999988079071
+			P: "Shininess", "double", "Number", "",2
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054618800, "Material::Skyscraper Windows", "" {
+	Material: 2205551376, "Material::ConcreteBlue", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "ShadingModel", "KString", "", "", "phong"
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "AmbientColor", "Color", "", "A",0.137254908680916,0.180392161011696,0.301960796117783
-			P: "DiffuseColor", "Color", "", "A",0.137254908680916,0.180392161011696,0.301960796117783
+			P: "AmbientColor", "Color", "", "A",0.384313762187958,0.490196108818054,0.505882382392883
+			P: "DiffuseColor", "Color", "", "A",0.384313762187958,0.490196108818054,0.505882382392883
 			P: "TransparentColor", "Color", "", "A",1,1,1
 			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
-			P: "SpecularFactor", "Number", "", "A",0.740000009536743
-			P: "ShininessExponent", "Number", "", "A",1.07177340984344
+			P: "SpecularFactor", "Number", "", "A",0
+			P: "ShininessExponent", "Number", "", "A",2
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.137254908680916,0.180392161011696,0.301960796117783
-			P: "Diffuse", "Vector3D", "Vector", "",0.137254908680916,0.180392161011696,0.301960796117783
-			P: "Specular", "Vector3D", "Vector", "",0.665999990940094,0.665999990940094,0.665999990940094
-			P: "Shininess", "double", "Number", "",1.07177340984344
+			P: "Ambient", "Vector3D", "Vector", "",0.384313762187958,0.490196108818054,0.505882382392883
+			P: "Diffuse", "Vector3D", "Vector", "",0.384313762187958,0.490196108818054,0.505882382392883
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
+			P: "Shininess", "double", "Number", "",2
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054612080, "Material::Skyscrapers Slot #3", "" {
+	Material: 2205551856, "Material::ConcreteBlack", "" {
+		Version: 102
+		ShadingModel: "phong"
+		MultiLayer: 0
+		Properties70:  {
+			P: "ShadingModel", "KString", "", "", "phong"
+			P: "EmissiveFactor", "Number", "", "A",0
+			P: "AmbientColor", "Color", "", "A",0.0980392247438431,0.133333340287209,0.172549024224281
+			P: "DiffuseColor", "Color", "", "A",0.0980392247438431,0.133333340287209,0.172549024224281
+			P: "TransparentColor", "Color", "", "A",1,1,1
+			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
+			P: "SpecularFactor", "Number", "", "A",0
+			P: "ShininessExponent", "Number", "", "A",2
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.0980392247438431,0.133333340287209,0.172549024224281
+			P: "Diffuse", "Vector3D", "Vector", "",0.0980392247438431,0.133333340287209,0.172549024224281
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
+			P: "Shininess", "double", "Number", "",2
+			P: "Opacity", "double", "Number", "",1
+			P: "Reflectivity", "double", "Number", "",0
+		}
+	}
+	Material: 2205550416, "Material::SkyscraperRoofs", "" {
+		Version: 102
+		ShadingModel: "phong"
+		MultiLayer: 0
+		Properties70:  {
+			P: "ShadingModel", "KString", "", "", "phong"
+			P: "EmissiveFactor", "Number", "", "A",0
+			P: "AmbientColor", "Color", "", "A",0.541176497936249,0.639215707778931,0.674509823322296
+			P: "DiffuseColor", "Color", "", "A",0.541176497936249,0.639215707778931,0.674509823322296
+			P: "TransparentColor", "Color", "", "A",1,1,1
+			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
+			P: "SpecularFactor", "Number", "", "A",0
+			P: "ShininessExponent", "Number", "", "A",2
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.541176497936249,0.639215707778931,0.674509823322296
+			P: "Diffuse", "Vector3D", "Vector", "",0.541176497936249,0.639215707778931,0.674509823322296
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
+			P: "Shininess", "double", "Number", "",2
+			P: "Opacity", "double", "Number", "",1
+			P: "Reflectivity", "double", "Number", "",0
+		}
+	}
+	Material: 2205550896, "Material::Skyscrapers Slot #5", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -439,7 +483,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054617360, "Material::Skyscrapers Slot #4", "" {
+	Material: 2205548976, "Material::Skyscrapers Slot #6", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -454,7 +498,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054613520, "Material::Skyscrapers Slot #5", "" {
+	Material: 2205552336, "Material::Skyscrapers Slot #7", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -469,7 +513,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054613040, "Material::Skyscrapers Slot #6", "" {
+	Material: 2202628992, "Material::Skyscrapers Slot #8", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -484,7 +528,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054616400, "Material::Skyscrapers Slot #7", "" {
+	Material: 2202624672, "Material::Skyscrapers Slot #9", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -499,7 +543,7 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054612560, "Material::Skyscrapers Slot #8", "" {
+	Material: 2202622752, "Material::Skyscrapers Slot #10", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -514,43 +558,13 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1054617840, "Material::Skyscrapers Slot #9", "" {
-		Version: 102
-		ShadingModel: "phong"
-		MultiLayer: 0
-		Properties70:  {
-			P: "DiffuseColor", "Color", "", "A",0,0,0
-			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
-			P: "Diffuse", "Vector3D", "Vector", "",0,0,0
-			P: "Specular", "Vector3D", "Vector", "",0.2,0.2,0.2
-			P: "Shininess", "double", "Number", "",20
-			P: "Opacity", "double", "Number", "",1
-			P: "Reflectivity", "double", "Number", "",0
-		}
-	}
-	Material: 1054614480, "Material::Skyscrapers Slot #10", "" {
-		Version: 102
-		ShadingModel: "phong"
-		MultiLayer: 0
-		Properties70:  {
-			P: "DiffuseColor", "Color", "", "A",0,0,0
-			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
-			P: "Diffuse", "Vector3D", "Vector", "",0,0,0
-			P: "Specular", "Vector3D", "Vector", "",0.2,0.2,0.2
-			P: "Shininess", "double", "Number", "",20
-			P: "Opacity", "double", "Number", "",1
-			P: "Reflectivity", "double", "Number", "",0
-		}
-	}
-	AnimationStack: 2159112624, "AnimStack::Take 001", "" {
+	AnimationStack: 1851841936, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",153953860000
 			P: "ReferenceStop", "KTime", "Time", "",153953860000
 		}
 	}
-	AnimationLayer: 1814836288, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 2213654160, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -560,43 +574,43 @@ Objects:  {
 Connections:  {
 	
 	;Model::Box002, Model::RootNode
-	C: "OO",1861428208,0
+	C: "OO",1861463280,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",1814836288,2159112624
+	C: "OO",2213654160,1851841936
 	
 	;Geometry::, Model::Box002
-	C: "OO",1864385664,1861428208
+	C: "OO",2134148480,1861463280
 	
-	;Material::Skyscraper base, Model::Box002
-	C: "OO",1054619280,1861428208
+	;Material::ConcreteBrown, Model::Box002
+	C: "OO",2205549936,1861463280
 	
-	;Material::Skyscraper Windows, Model::Box002
-	C: "OO",1054618800,1861428208
+	;Material::ConcreteBlue, Model::Box002
+	C: "OO",2205551376,1861463280
 	
-	;Material::Skyscrapers Slot #3, Model::Box002
-	C: "OO",1054612080,1861428208
+	;Material::ConcreteBlack, Model::Box002
+	C: "OO",2205551856,1861463280
 	
-	;Material::Skyscrapers Slot #4, Model::Box002
-	C: "OO",1054617360,1861428208
+	;Material::SkyscraperRoofs, Model::Box002
+	C: "OO",2205550416,1861463280
 	
 	;Material::Skyscrapers Slot #5, Model::Box002
-	C: "OO",1054613520,1861428208
+	C: "OO",2205550896,1861463280
 	
 	;Material::Skyscrapers Slot #6, Model::Box002
-	C: "OO",1054613040,1861428208
+	C: "OO",2205548976,1861463280
 	
 	;Material::Skyscrapers Slot #7, Model::Box002
-	C: "OO",1054616400,1861428208
+	C: "OO",2205552336,1861463280
 	
 	;Material::Skyscrapers Slot #8, Model::Box002
-	C: "OO",1054612560,1861428208
+	C: "OO",2202628992,1861463280
 	
 	;Material::Skyscrapers Slot #9, Model::Box002
-	C: "OO",1054617840,1861428208
+	C: "OO",2202624672,1861463280
 	
 	;Material::Skyscrapers Slot #10, Model::Box002
-	C: "OO",1054614480,1861428208
+	C: "OO",2202622752,1861463280
 }
 ;Takes section
 ;----------------------------------------------------
