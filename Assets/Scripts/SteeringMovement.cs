@@ -31,7 +31,7 @@ public class SteeringMovement : MonoBehaviour
         if (status)
         {
             totalSpeed *= transform.localScale.x;
-			totalTurnSpeed /= (transform.localScale.x / 15);
+			totalTurnSpeed /= Mathf.Max(1, transform.localScale.x / 15);
         }
         transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, totalSpeed * Time.deltaTime);
         Vector3 euler = transform.rotation.eulerAngles;

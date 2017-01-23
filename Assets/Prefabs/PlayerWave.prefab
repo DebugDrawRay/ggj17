@@ -676,8 +676,8 @@ MonoBehaviour:
   thisCollider: {fileID: 136176122022860878}
   deathThreshold: 0.1
   scaleThresholds:
-  - 3
-  - 5
+  - 10
+  - 25
   scaleSpeed: 1
   scaleUpMod: 0.15
   negateAmount: 0.1
@@ -685,7 +685,6 @@ MonoBehaviour:
   skin: {fileID: 137844213484270962}
   crestBlend: 0
   heightBlend: 1
-  crashBlend: 0
   flatBlend: 2
   crashBlend: 5
   crestScale: 10
