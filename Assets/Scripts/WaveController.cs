@@ -14,9 +14,13 @@ public class WaveController : MonoBehaviour
 
     void Update()
     {
-        if (GameController.instance.currentState == GameController.State.InGame)
+        if (GameController.instance != null && 	GameController.instance.currentState == GameController.State.InGame)
         {
             steering.MoveDirection(input.Steer.Value);
         }
+		else if (GameController.instance == null)
+		{
+			steering.MoveDirection(input.Steer.Value);
+		}
     }
 }

@@ -18,10 +18,10 @@ public class WaveStatusController : MonoBehaviour
     public SkinnedMeshRenderer skin;
     public int crestBlend;
     public int heightBlend;
-	public int crashBlend;
     public int flatBlend;
-    
-    public float crestScale = 10;
+	public int crashBlend;
+
+	public float crestScale = 10;
     protected float currentFlatness = 0;
 	protected float currentHeight = 0;
 	protected float currentCrash = 0;
@@ -222,27 +222,29 @@ public class WaveStatusController : MonoBehaviour
 		destructorRigidbody.useGravity = false;
 		destructorRigidbody.isKinematic = true;
 		DestructionController controller = destructor.AddComponent<DestructionController>();
-		controller.StartInflation(scale * 10, Mathf.Max(scale * 0.025f));
+		//controller.StartInflation(scale * 2f, scale * 0.05f);
+		controller.StartInflation(scale * 2f, 5f);
 
 		//Play Death Anim
 
 		//Raise wave up
 		float time = 0;
-		float raiseUpTime = 1;	
+		float raiseUpTime = 2;	
 		while (time < raiseUpTime)
 		{
 			//Scale Up
 			scale += Time.deltaTime * scale;
 
 			//Raise Up
-			currentHeight = Mathf.Lerp(0, 100, time);
+			currentHeight = Mathf.Lerp(0, 100, time / raiseUpTime);
 
 			time += Time.deltaTime;
 			yield return null;
 		}
 
 		time = 0;
-		float crashTime = scale / 5;
+		float crashTime = scale / 100;
+		Debug.Log("CRASH TIME: " + crashTime);
 		while (time < crashTime)
 		{
 			//Still Scale Up
@@ -255,8 +257,8 @@ public class WaveStatusController : MonoBehaviour
 			yield return null;
 		}
 
-		//Destroy(collectibleParent.gameObject);
-		//OnDeath();
+		Destroy(collectibleParent.gameObject);
+		OnDeath();
 
 		
 	}

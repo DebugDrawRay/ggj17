@@ -27,6 +27,7 @@ public class DestructionController : MonoBehaviour
 			yield return null;
 		}
 
+		Debug.Log("DESTRUCTION OVER");
 		Destroy(gameObject);
 	}
 
@@ -38,8 +39,12 @@ public class DestructionController : MonoBehaviour
 		{
 			rigidBody.isKinematic = false;
 			rigidBody.useGravity = true;
-			rigidBody.AddForce((collider.gameObject.transform.position - forceOrigin) * 200f);
-			rigidBody.AddTorque(Vector3.left * 100);
+
+			Vector3 forcePoint = transform.position + ((collider.gameObject.transform.position - transform.position) * 0.5f);
+			forcePoint.y -= 200f;
+
+			rigidBody.AddForce((collider.gameObject.transform.position - forcePoint) * 80f);
+			rigidBody.AddTorque(Vector3.left * 50);
 			collider.enabled = false;
 		}
 		else

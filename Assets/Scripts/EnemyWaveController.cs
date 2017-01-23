@@ -77,7 +77,7 @@ public class EnemyWaveController : MonoBehaviour
     Tween current;
     void UpdateSmoothness()
     {
-        if(transform.localScale.x <= WaveStatusController.instance.transform.localScale.x)
+        if(WaveStatusController.instance != null && transform.localScale.x <= WaveStatusController.instance.transform.localScale.x)
         {
             if(!tweening)
             {
