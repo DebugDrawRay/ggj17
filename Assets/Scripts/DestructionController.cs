@@ -7,6 +7,13 @@ public class DestructionController : MonoBehaviour
 	protected Vector3 forceOrigin;
 	protected float destructionLifespan;
 
+	protected List<Collider> alreadyThrown;
+
+	void Awake()
+	{
+		alreadyThrown = new List<Collider>();
+	}
+
 	public void StartInflation(float speed, float lifespan)
 	{
 		destructionLifespan = lifespan;
@@ -33,6 +40,7 @@ public class DestructionController : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
+		collider.gameObject.layer = LayerMask.NameToLayer("TossedObjects");
 		Rigidbody rigidBody = collider.gameObject.GetComponent<Rigidbody>();
 
 		if (rigidBody != null)
@@ -45,7 +53,7 @@ public class DestructionController : MonoBehaviour
 
 			rigidBody.AddForce((collider.gameObject.transform.position - forcePoint) * 80f);
 			rigidBody.AddTorque(Vector3.left * 50);
-			collider.enabled = false;
+
 		}
 		else
 			Debug.Log("Attached Rigid Body is Null");

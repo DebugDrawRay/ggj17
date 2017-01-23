@@ -48,6 +48,8 @@ public class WaveStatusController : MonoBehaviour
     //Controllers
     protected SteeringMovement steeringMovement;
 
+	protected bool destroyed = false;
+
 	[HideInInspector]
 	public float scale = 1f;
 	public float maxScale = 300;
@@ -154,8 +156,11 @@ public class WaveStatusController : MonoBehaviour
 				scale -= waveController.scale * negateAmount;
 			}
             HitReaction();
-            collisionSource.clip = collisionClip;
-            collisionSource.Play();
+			if (collisionSource != null)
+			{
+				collisionSource.clip = collisionClip;
+				collisionSource.Play();
+			}
             OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
@@ -177,8 +182,12 @@ public class WaveStatusController : MonoBehaviour
                 attachPoint.transform.SetParent(collectibleParent);
 
                 floatsamController.AttachToWave(this, attachPoint);
-                collisionSource.clip = collectClip;
-                collisionSource.Play();
+
+				if (collisionSource != null)
+				{
+					collisionSource.clip = collectClip;
+					collisionSource.Play();
+				}
             }
             HitReaction();
         }
@@ -187,14 +196,17 @@ public class WaveStatusController : MonoBehaviour
         ObstacleController obstacle = collider.gameObject.GetComponent<ObstacleController>();
 		if (obstacle)
 		{
-            collisionSource.clip = collisionClip;
-            collisionSource.Play();
+			if (collisionSource != null)
+			{
+				collisionSource.clip = collisionClip;
+				collisionSource.Play();
+			}
             HitReaction();
             OnDeath();
 		}
 
 		//If Shoreline
-		if (collider.tag == "Shoreline")
+		if (collider.tag == "Shoreline" && !destroyed)
 		{
 			StartCoroutine(WaveCrash());
 		}
@@ -218,12 +230,15 @@ public class WaveStatusController : MonoBehaviour
 
 	protected IEnumerator WaveCrash()
 	{
+		destroyed = true;
+
         AudioObserver.instance.TriggerEndGame(true);
         if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
 
 		GameObject destructor = new GameObject("DestructionSpehere");
 		destructor.transform.position = transform.position;
+		destructor.layer = LayerMask.NameToLayer("DestructionSphere");
 		SphereCollider destructorCollider = destructor.AddComponent<SphereCollider>();
 		destructorCollider.isTrigger = true;
 		Rigidbody destructorRigidbody = destructor.AddComponent<Rigidbody>();
@@ -231,7 +246,7 @@ public class WaveStatusController : MonoBehaviour
 		destructorRigidbody.isKinematic = true;
 		DestructionController controller = destructor.AddComponent<DestructionController>();
 		//controller.StartInflation(scale * 2f, scale * 0.05f);
-		controller.StartInflation(scale * 2f, 5f);
+		controller.StartInflation(scale * 2.5f, 5f);
 
 		//Play Death Anim
 
