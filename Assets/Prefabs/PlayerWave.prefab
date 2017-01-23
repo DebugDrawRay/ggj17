@@ -555,7 +555,7 @@ Animator:
   m_GameObject: {fileID: 1484174354404876}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dc399d5629463ed46acf860176a9f9be, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aacdfdcfec6fa334fa3952554ec5b5e1, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -602,6 +602,7 @@ MonoBehaviour:
   skin: {fileID: 137844213484270962}
   crestBlend: 0
   heightBlend: 1
+  crashBlend: 0
   flatBlend: 2
   crestScale: 10
   onHit: {fileID: 1929543318098900, guid: 0d05846c7d31bd3458059e1c2b96cfe9, type: 2}
@@ -621,6 +622,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8111813331572044bbf29f561fb51c3c, type: 3}
   collisionSource: {fileID: 0}
   collisionClip: {fileID: 0}
+  collectClip: {fileID: 0}
   scale: 1
   maxScale: 300
 --- !u!114 &114242387561605376
