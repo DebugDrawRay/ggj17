@@ -160,9 +160,9 @@ public class OceanBodySpawner : MonoBehaviour
             ran -= scaleLevels[i].x;
         }
         Vector2 selected = scaleLevels[index];
-        current.x *= Mathf.Min(maxEnemySize, selected.y);
-        current.y *= Mathf.Min(maxEnemySize, selected.y);
-        current.z *= Mathf.Min(maxEnemySize, selected.y);
+        current.x = Mathf.Min(maxEnemySize, current.x * selected.y);
+		current.y = Mathf.Min(maxEnemySize, current.y * selected.y);
+		current.z = Mathf.Min(maxEnemySize, current.z * selected.y);
 
         return current;
     }
