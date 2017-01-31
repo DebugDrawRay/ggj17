@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4152031239422794}
   - component: {fileID: 136278096467150896}
   - component: {fileID: 54765887923382804}
-  - component: {fileID: 114477581464533936}
+  - component: {fileID: 114563258170850884}
   m_Layer: 0
   m_Name: Tree2
   m_TagString: Untagged
@@ -174,7 +174,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114477581464533936
+--- !u!114 &114563258170850884
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

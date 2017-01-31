@@ -15,7 +15,7 @@ public class SteeringMovement : MonoBehaviour
 	{
 		get
 		{
-			return moveSpeed * transform.localScale.x;
+			return moveSpeed * (Mathf.Max(1, transform.localScale.x * 0.5f));
 		}
 	}
 
@@ -26,14 +26,12 @@ public class SteeringMovement : MonoBehaviour
 
     public void MoveDirection(float direction)
     {
-        float totalSpeed = moveSpeed;
         float totalTurnSpeed = turnSpeed;
         if (status)
         {
-            totalSpeed *= transform.localScale.x;
-			totalTurnSpeed /= Mathf.Max(1, transform.localScale.x / 15);
+			totalTurnSpeed /= Mathf.Max(1, transform.localScale.x / 25);
         }
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, totalSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, currentSpeed * Time.deltaTime);
         Vector3 euler = transform.rotation.eulerAngles;
         euler.y = euler.y + (direction * totalTurnSpeed);
         Quaternion rot = Quaternion.Euler(euler);

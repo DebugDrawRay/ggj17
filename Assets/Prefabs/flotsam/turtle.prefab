@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectThreshold: 0
-  pickupScore: 1
+  pickupScore: 5
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
@@ -214,7 +214,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1044337696180078}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

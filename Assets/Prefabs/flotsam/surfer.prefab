@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1640697020836000
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectThreshold: 0
-  pickupScore: 1
+  pickupScore: 5
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
@@ -198,7 +198,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1349977511513046}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

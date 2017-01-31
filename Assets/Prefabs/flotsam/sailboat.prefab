@@ -201,7 +201,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243723768274294984, guid: 52c477765d37f354eabe265e8c31db0c,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 536c4decfe7aa8f42b77f5fa59c60ef2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectThreshold: 10
-  pickupScore: 10
+  pickupScore: 20
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}
@@ -342,7 +342,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1315178768535372}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

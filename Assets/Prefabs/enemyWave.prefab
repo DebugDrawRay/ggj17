@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 136374387122102606}
   - component: {fileID: 82372648770260100}
   m_Layer: 0
-  m_Name: enemyWave
+  m_Name: EnemyWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243723768274294984, guid: 52c477765d37f354eabe265e8c31db0c,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 536c4decfe7aa8f42b77f5fa59c60ef2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -362,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scale: 0.5
   move: {fileID: 114947899666193566}
+  waveCollider: {fileID: 136374387122102606}
   skin: {fileID: 137142421347875620}
   flatBlend: 2
   timeToBirth: 3
@@ -379,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd28689c933b80b4c95fac6c968776e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.5
+  moveSpeed: 2
   turnSpeed: 0
   turnAccel: 0
   status: {fileID: 0}
@@ -391,7 +392,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1952119213419426}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1
   m_Height: 4
   m_Direction: 0
@@ -465,7 +466,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1267950710973802}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3006,7 +3007,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1593753439714364}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

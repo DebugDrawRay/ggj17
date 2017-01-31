@@ -55,8 +55,6 @@ public class GameController : MonoBehaviour
 	public void AddToScore(int scoreToAdd)
 	{
 		score += scoreToAdd;
-
-		Debug.Log("Added " + scoreToAdd + " to Score:" + score);
 	}
 
 	public void RemoveFromScore(int scoreToRemove)

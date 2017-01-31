@@ -17,6 +17,12 @@ public class AudioObserver : MonoBehaviour
     {
         instance = this;
     }
+
+	void Start()
+	{
+		musicTracks[currentTrack].DOFade(1, 2f);
+	}
+
     void Update()
     {
         if(WaveStatusController.instance)
@@ -31,15 +37,15 @@ public class AudioObserver : MonoBehaviour
     {
         if(lastTrack != currentTrack)
         {
-            if(lastTrack != -1)
-            {
-                musicTracks[lastTrack].DOFade(0, 1f);
-            }
             if(currentTrack < musicTracks.Length)
             {
-                musicTracks[currentTrack].DOFade(1, 1f);
-            }
-            lastTrack = currentTrack;
+				if (lastTrack != -1)
+				{
+					musicTracks[lastTrack].DOFade(0, 1f);
+				}
+				musicTracks[currentTrack].DOFade(1, 1f);
+				lastTrack = currentTrack;
+			}
         }
     }
 

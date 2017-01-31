@@ -143,8 +143,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243956321779490088, guid: 52c477765d37f354eabe265e8c31db0c,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: ac24bfcd56f31dd44bb22a0671808978, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectThreshold: 25
-  pickupScore: 25
+  pickupScore: 50
   move: {fileID: 0}
   timeToRotateRange: {x: 0, y: 0}
   pauseRotateRange: {x: 0, y: 0}

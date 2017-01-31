@@ -8,6 +8,7 @@ public class EnemyWaveController : MonoBehaviour
 	[Header("Things")]
 	public float scale;
     public SteeringMovement move;
+	public Collider waveCollider;
 
 	[Header("Wave Visuals")]
 	public SkinnedMeshRenderer skin;
@@ -16,14 +17,13 @@ public class EnemyWaveController : MonoBehaviour
     public float timeToDeath = .5f;
 	protected int currentFlatness = 100;
 
+	[Header("Colors")]
     private Color originalColor;
     private Color currentColor;
     public Color goodColor;
     public Color badColor;
 
-	protected float lifetime = 0;
-	protected Vector2 maxLifetime = new Vector2(15f, 30f);
-    protected float killDistance = 500f;
+    protected float killDistance = 1000f;
 	protected bool alive = true;
 
 	protected Tween birth;
@@ -37,7 +37,6 @@ public class EnemyWaveController : MonoBehaviour
 		OnBirth();
         originalColor = skin.material.GetColor("_Emission");
         currentColor = originalColor;
-        lifetime = Random.Range(maxLifetime.x, maxLifetime.y);
     }
 
     void Update()
@@ -46,6 +45,9 @@ public class EnemyWaveController : MonoBehaviour
         {
             scale = transform.localScale.x;
             skin.SetBlendShapeWeight(flatBlend, currentFlatness);
+
+			if (currentFlatness == 0 && !waveCollider.enabled)
+				waveCollider.enabled = true;
 
             if (move != null)
             {
@@ -57,28 +59,22 @@ public class EnemyWaveController : MonoBehaviour
 				//Die if you're too smol
 				if (WaveStatusController.instance != null)
 				{
-					if (scale < WaveStatusController.instance.scale * 0.1f)
+					if (scale < WaveStatusController.instance.scale * 0.4f)
 					{
-						OnDeath();
+						StartCoroutine(DelayedDeath());
 					}
-				}
-
-				//Die after certain amount of time
-				lifetime -= Time.deltaTime;
-				if (lifetime <= 0)
-				{
-					OnDeath();
 				}
 
                 if(Vector3.Distance(transform.position, WaveStatusController.instance.transform.position) > killDistance)
                 {
-                    OnDeath();
+					StartCoroutine(DelayedDeath());
                 }
 			}
         }
         skin.material.SetColor("_Emission", currentColor);
         UpdateSmoothness();
     }
+
     bool tweening = false;
     Tween current;
     void UpdateSmoothness()
@@ -98,10 +94,18 @@ public class EnemyWaveController : MonoBehaviour
             tweening = false;
         }
     }
+
 	public void OnBirth()
 	{
 		birth = DOTween.To(() => currentFlatness, x => currentFlatness = x, 0, timeToBirth);
 		birth.SetEase(Ease.InOutBack);
+	}
+
+	protected IEnumerator DelayedDeath()
+	{
+		float time = Random.Range(1f, 5f);
+		yield return new WaitForSeconds(time);
+		OnDeath();
 	}
 
 	public void OnDeath()

@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     [Header("Title Screen")]
     public Text title;
+	public Text titleTwo;
     public Text subtitle;
     public Button startButton;
 
@@ -41,15 +42,17 @@ public class UIController : MonoBehaviour
         clear.a = 0;
 
         title.color = clear;
+		titleTwo.color = clear;
         subtitle.color = clear;
         title.DOColor(Color.white, 2f).SetEase(Ease.Linear);
+		titleTwo.DOColor(Color.white, 2f).SetEase(Ease.Linear);
         subtitle.DOColor(Color.white, 2f).SetEase(Ease.Linear);
     }
     void Update()
 	{
 		if (WaveStatusController.instance != null)
 		{
-			curentHeight.text = "HEIGHT: " + Mathf.CeilToInt(WaveStatusController.instance.scale) + "m";
+			curentHeight.text = "HEIGHT: " + Mathf.CeilToInt(WaveStatusController.instance.displayScale) + "m";
 			if (GameController.instance != null)
 				currentCollected.text = GameController.instance.Score.ToString();
 		}
@@ -58,6 +61,7 @@ public class UIController : MonoBehaviour
     public void StartGame()
     {
         title.DOKill(true);
+		titleTwo.DOKill(true);
         subtitle.DOKill(true);
         CameraController.instance.MoveToPlayer(() => GameController.instance.currentState = GameController.State.InGame);
         curentHeight.DOColor(Color.white, 1f);
@@ -66,6 +70,7 @@ public class UIController : MonoBehaviour
         Color clear = title.color;
         clear.a = 0;
         title.DOColor(clear, 1f);
+		titleTwo.DOColor(clear, 1f);
         subtitle.DOColor(clear, 1f);
     }
 

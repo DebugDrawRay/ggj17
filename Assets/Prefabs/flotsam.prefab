@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4839111880511514}
   - component: {fileID: 114409463260428262}
   m_Layer: 0
-  m_Name: flotsam
+  m_Name: Flotsam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectThreshold: 0
   pickupScore: 0
+  move: {fileID: 0}
+  timeToRotateRange: {x: 0, y: 0}
+  pauseRotateRange: {x: 0, y: 0}
+  disableOnPickup: {fileID: 0}
+  disableAudioOnPickup: {fileID: 0}
 --- !u!136 &136733319573950714
 CapsuleCollider:
   m_ObjectHideFlags: 1

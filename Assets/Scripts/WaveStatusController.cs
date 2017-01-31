@@ -13,7 +13,7 @@ public class WaveStatusController : MonoBehaviour
     public float scaleSpeed = 1;
     public float scaleUpMod = 1;
     public float negateAmount = 0.5f;
-    public float scaleDecayRate = 0.05f;
+    public float scaleDecayRate = 0.01f;
 
     [Header("Wave Visuals")]
     public SkinnedMeshRenderer skin;
@@ -27,7 +27,11 @@ public class WaveStatusController : MonoBehaviour
 	protected float currentHeight = 0;
 	protected float currentCrash = 0;
 
-    public GameObject onHit;
+	public ParticleSystem[] displayParticles;
+
+	[Header("Physics")]
+	public Collider waveCollider;
+	public GameObject onHit;
 
     [Header("Collectibles")]
 	public Transform collectibleParent;
@@ -46,14 +50,25 @@ public class WaveStatusController : MonoBehaviour
 
     private int previousScale;
     private int nextScale;
-    //Controllers
+    //Controllersl
     protected SteeringMovement steeringMovement;
 
 	protected bool destroyed = false;
 
 	[HideInInspector]
 	public float scale = 1f;
+	public float scaleAtDestroy;
 	public float maxScale = 300;
+	public float displayScale
+	{
+		get
+		{
+			if (destroyed)
+				return scaleAtDestroy;
+			else
+				return scale;
+		}
+	}
 
     public static WaveStatusController instance;
 
@@ -72,7 +87,7 @@ public class WaveStatusController : MonoBehaviour
         if (GameController.instance.currentState == GameController.State.InGame)
         {
             //Scale Down over time
-            scale -= scaleDecayRate * Time.deltaTime;
+            scale -= (scaleDecayRate * scale) * Time.deltaTime;
 
             //Move scale of wave toward desired scale
 			if (scale < maxScale)
@@ -93,6 +108,7 @@ public class WaveStatusController : MonoBehaviour
                 movementSource.clip = movementClips[0];
                 movementSource.Play();
             }
+
             CheckScale();
         }
 	}
@@ -109,6 +125,7 @@ public class WaveStatusController : MonoBehaviour
             previousScale = nextScale;
             nextScale++;
         }
+
         if(previousScale < 0 && previousScale >= 0 && transform.localScale.x < scaleThresholds[previousScale])
         {
             AudioObserver.instance.ChangeTrack(previousScale+1);
@@ -138,6 +155,7 @@ public class WaveStatusController : MonoBehaviour
         hit.transform.localScale = scale;*/
 
     }
+
     void OnTriggerEnter(Collider collider)
 	{
 		//If Enemy Wave
@@ -149,19 +167,24 @@ public class WaveStatusController : MonoBehaviour
 			{
 				//Eat enemy wave
 				scale += waveController.scale * scaleUpMod;
+				AdjustParticles();
 			}
 			else
 			{
 				//take damage based on wave scale
 				scale = transform.localScale.x;
 				scale -= waveController.scale * negateAmount;
+				AdjustParticles();
 			}
+
             HitReaction();
+
 			if (collisionSource != null)
 			{
 				collisionSource.clip = collisionClip;
 				collisionSource.Play();
 			}
+
             OceanBodySpawner.instance.RefillEnemies();
 			waveController.OnDeath();
         }
@@ -213,6 +236,15 @@ public class WaveStatusController : MonoBehaviour
 		}
 	}
 
+	protected void AdjustParticles()
+	{
+		for (int i = 0; i < displayParticles.Length; i++)
+		{
+			ParticleSystem.MainModule mod = displayParticles[i].main;
+			mod.startSize = new ParticleSystem.MinMaxCurve(0.2f * scale, 1f * scale);
+		}
+	}
+
 	protected RaycastHit GetPointOnMesh()
 	{
 		//Randomize position of center;
@@ -231,11 +263,14 @@ public class WaveStatusController : MonoBehaviour
 
 	protected IEnumerator WaveCrash()
 	{
+		scaleAtDestroy = scale;
 		destroyed = true;
 
         AudioObserver.instance.TriggerEndGame(true);
         if (GameController.instance != null)
 			GameController.instance.SetFinalWaveHeight(scale);
+
+		//waveCollider.isTrigger = false;
 
 		GameObject destructor = new GameObject("DestructionSpehere");
 		destructor.transform.position = transform.position;
@@ -248,15 +283,16 @@ public class WaveStatusController : MonoBehaviour
 		DestructionController controller = destructor.AddComponent<DestructionController>();
 		controller.StartInflation(scale * 5f, 5f);
 
-		//Play Death Anim
 
 		//Raise wave up
+		displayParticles[0].Play();
 		float time = 0;
 		float raiseUpTime = 2;	
 		while (time < raiseUpTime)
 		{
 			//Scale Up
 			scale += Time.deltaTime * scale;
+			AdjustParticles();
 
 			//Raise Up
 			currentHeight = Mathf.Lerp(0, 100, time / raiseUpTime);
@@ -265,9 +301,10 @@ public class WaveStatusController : MonoBehaviour
 			yield return null;
 		}
 
+		//Crash Wave Down
+
 		time = 0;
-		float crashTime = scale / 100;
-		Debug.Log("CRASH TIME: " + crashTime);
+		float crashTime = 4;
 		while (time < crashTime)
 		{
 			//Still Scale Up

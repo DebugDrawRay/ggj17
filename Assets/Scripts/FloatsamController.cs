@@ -9,6 +9,7 @@ public class FloatsamController : MonoBehaviour
 
 	protected Collider theCollider;
 	protected Rigidbody theRigidBody;
+	protected AudioSource theAudioSource;
 
 	protected WaveStatusController attachedWave;
 	protected GameObject attachPoint;
@@ -30,12 +31,14 @@ public class FloatsamController : MonoBehaviour
 	{
 		theCollider = gameObject.GetComponent<Collider>();
 		theRigidBody = gameObject.GetComponent<Rigidbody>();
+		theAudioSource = gameObject.GetComponent<AudioSource>();
 	}
 
     void Start()
     {
         float startRot = Random.Range(0, 360);
         transform.rotation = Quaternion.Euler(0, startRot, 0);
+		StartCoroutine(FadeInSFX());
     }
 
     void Deactivate()
@@ -49,6 +52,7 @@ public class FloatsamController : MonoBehaviour
             disableAudioOnPickup.enabled = false;
         }
     }
+
     void Update()
 	{
 		if (attachPoint != null)
@@ -68,7 +72,7 @@ public class FloatsamController : MonoBehaviour
 				transform.rotation = attachPoint.transform.rotation;
 			}
 			
-			if (attachedWave.scale < collectThreshold)
+			if (attachedWave.scale < (collectThreshold * 0.8f))
 			{
 				if (GameController.instance != null)
 				{
@@ -154,6 +158,27 @@ public class FloatsamController : MonoBehaviour
 				GameController.instance.IncramentFloatsam();
 			}
             Deactivate();
+		}
+	}
+
+	protected IEnumerator FadeInSFX()
+	{
+		if (theAudioSource != null)
+		{
+			float targetVolume = theAudioSource.volume;
+			float volume = theAudioSource.volume = 0;
+			theAudioSource.Play();
+
+			float time = 0;
+			while (time < 1)
+			{
+				volume = Mathf.Lerp(0, targetVolume, time);
+				theAudioSource.volume = volume;
+
+				time += Time.deltaTime;
+				yield return null;
+			}
+			theAudioSource.volume = targetVolume;
 		}
 	}
 }

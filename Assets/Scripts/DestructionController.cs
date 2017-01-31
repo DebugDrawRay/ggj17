@@ -48,12 +48,11 @@ public class DestructionController : MonoBehaviour
 			rigidBody.isKinematic = false;
 			rigidBody.useGravity = true;
 
-			Vector3 forcePoint = transform.position + ((collider.gameObject.transform.position - transform.position) * 0.5f);
-			forcePoint.y -= 200f;
+			//Vector3 forcePoint = transform.position + ((collider.gameObject.transform.position - transform.position) * 0.5f);
+			//forcePoint.y -= 200f;
 
-			rigidBody.AddForce((collider.gameObject.transform.position - forcePoint) * 80f);
-			rigidBody.AddTorque(Vector3.left * 50);
-
+			//rigidBody.AddForce((collider.gameObject.transform.position - forcePoint) * 80f);
+			//rigidBody.AddTorque(Vector3.left * 50);
 		}
 		else
 			Debug.Log("Attached Rigid Body is Null");
